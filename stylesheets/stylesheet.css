@@ -8,12 +8,9 @@ body {
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
 }
 
-/* General & 'Reset' Stuff */
-
 .container {
-  width: 90%;
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 1000px;
+  margin: auto;
 }
 
 section {
@@ -41,6 +38,7 @@ header {
   border-bottom: 1px dashed #b5e853;
   padding: 20px 0;
   margin: 0 0 40px 0;
+  text-align: center;
 }
 
 header h1 {
