@@ -20,11 +20,15 @@ You can find all the downloads [at the download page](https://github.com/cpputes
 
 Alternatively, you can clone the github repository, read-only:
 
-    git clone git://github.com/cpputest/cpputest.git
+{% highlight bash %}
+$ git clone git://github.com/cpputest/cpputest.git
+{% endhighlight %}
 
 Or clone it via ssh (which requires a github account)
 
-    git clone git@github.com:cpputest/cpputest.git
+{% highlight bash %}
+$ git clone git@github.com:cpputest/cpputest.git
+{% endhighlight %}
 
 ## Where to find more information
 
@@ -38,32 +42,38 @@ Or clone it via ssh (which requires a github account)
 
 To write your first test, all you need is a new cpp file with a TEST_GROUP and a TEST, like:
 
-    TEST_GROUP(FirstTestGroup)
-    {
-    };
+{% highlight c++ %}
+TEST_GROUP(FirstTestGroup)
+{
+};
 
-    TEST(FirstTestGroup, FirstTest)
-    {
-       FAIL("Fail me!");
-    }
+TEST(FirstTestGroup, FirstTest)
+{
+   FAIL("Fail me!");
+}
+{% endhighlight %}
 
 This test will fail.
 
 You can add new tests to the test group by just writing more tests in the file, like this:
 
-    TEST(FirstTestGroup, SecondTest)
-    {
-       STRCMP_EQUAL("hello", "world");
-       LONGS_EQUAL(1, 2);
-       CHECK(false);
-    }
+{% highlight c++ %}
+TEST(FirstTestGroup, SecondTest)
+{
+   STRCMP_EQUAL("hello", "world");
+   LONGS_EQUAL(1, 2);
+   CHECK(false);
+}
+{% endhighlight %}
 
 You do need to create a main where you run all the unit tests. Such a main will look like this:
 
-    int main(int ac, char** av)
-    {
-       return CommandLineTestRunner::RunAllTests(ac, av);
-    }
+{% highlight c++ %}
+int main(int ac, char** av)
+{
+   return CommandLineTestRunner::RunAllTests(ac, av);
+}
+{% endhighlight %}
 
 For more information, We'd recommend to [read the manual](http://www.cpputest.org) or, even better, check some [existing tests](https://github.com/cpputest/cpputest/tree/master/tests) such as [SimpleStringTest](https://github.com/cpputest/cpputest/blob/master/tests/SimpleStringTest.cpp) or (a bit more complicated) [MemoryLeakDetectorTest](https://github.com/cpputest/cpputest/blob/master/tests/MemoryLeakDetectorTest.cpp) or the [mocking tests](https://github.com/cpputest/cpputest/blob/master/tests/CppUTestExt/TestMockSupport.cpp) or just check out the [Cheat Sheet](https://github.com/cpputest/cpputest/blob/master/tests/CheatSheetTest.cpp)
 
