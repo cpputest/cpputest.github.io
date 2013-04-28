@@ -131,7 +131,7 @@ ul li {
   list-style: none;
 }
 
-ul li:before {
+section ul li:before {
   content: ">>";
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   font-size: 13px;
@@ -216,6 +216,8 @@ hr {
 }
 
 .btn-github .icon {
+  display: inline-block;
+  float: left;
   opacity: 0.6;
   background: url("../images/blacktocat.png") 0 0 no-repeat;
 }
