@@ -26,12 +26,6 @@ li {
   line-height: 1.4 ;
 }
 
-/* Header, <header>
-   header   - container
-   h1       - project name
-   h2       - project description
-*/
-
 header {
   background: rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -66,7 +60,7 @@ header h2 {
   color: #666;
 }
 
-#downloads .btn {
+header #downloads .btn, btn-inverse {
   display: inline-block;
   text-align: center;
   margin: 0;
@@ -207,19 +201,12 @@ hr {
   background: -webkit-linear-gradient(top, rgba(40, 40, 40, 0.6), rgba(35, 35, 35, 0.6) 50%, rgba(10, 10, 10, 0.8) 50%, rgba(0, 0, 0, 0.8));
 }
 
-.btn .icon {
+.github_icon {
   display: inline-block;
   width: 16px;
   height: 16px;
   margin: 1px 8px 0 0;
-  float: left;
-}
-
-.btn-github .icon {
-  display: inline-block;
-  float: left;
-  opacity: 0.6;
-  background: url("../images/blacktocat.png") 0 0 no-repeat;
+  background: url("../images/blacktocat.png") 0 0 no-repeat;	
 }
 
 /* Links
