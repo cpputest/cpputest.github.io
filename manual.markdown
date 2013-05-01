@@ -9,7 +9,8 @@ CppUTest has a couple design principles
 * Simple to use and small
 * Portable to old and new platforms
 
-Below is further CppUTest documentation:
+## Table of Content
+
 * [Getting started](#getting_started)
 * [Test Macros](#test_macros)
 * [Assertions](#assertions)
