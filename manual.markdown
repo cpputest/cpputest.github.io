@@ -110,7 +110,7 @@ You need to add CppUTest library to the linker flags, for example, like:
 * TEST(group, name) - define a test
 * IGNORE_TEST(group, name) - turn off the execution of a test
 * TEST_GROUP(group) - Declare a test group to which certain tests belong.
-  This will also create thelink needed from another library.
+  This will also create the link needed from another library.
 * TEST_GROUP_BASE(group, base) - Same as TEST_GROUP, just use a different base class than Utest
 * TEST_SETUP() - Declare a void setup method in a TEST_GROUP
 * TEST_TEARDOWN() - Declare a void setup method in a TEST_GROUP
@@ -374,6 +374,7 @@ In larger projects, it is often useful if you can link the tests in "libraries o
 
 * You can use the IMPORT_TEST_GROUP macro to create a reference. This is typically done in the main.cpp or the main.h. You'll need to do this for every single TEST_GROUP (and the tests groups shouldn't be distributed over multiple files)
 * When you use gnu linker (on linux, but not MacOSX) then you can use an additional linker option that will make sure the whole library is linked. You do this by adding the library to be linked between the "-Wl,-while-archive" and the -Wl,-no-whole-archive" options. For example:
+
 {% highlight make %}
    gcc -o test_executable production_library.a -Wl,-whole-archive test_library.a -Wl,-no-whole-archive $(OTHER_LIBRARIES)
 {% endhighlight %}
