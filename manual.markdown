@@ -20,6 +20,8 @@ CppUTest has a couple design principles
 * [Test Plugins](#test_plugins)
 * [Scripts](#scripts)
 * [Advanced Stuff](#advanced)
+* [Using Google Mock](#gmock)
+* [Running Google Tests in CppUTest](#gmock)
 
 <a id="getting_started"> </a>
 ## Getting Started
@@ -225,7 +227,41 @@ CFLAGS += -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorMallocMac
 
 These are added by default when you use the CppUTest Makefile helpers.
 
-If you want to disable the memory leak detection (because you got too much memory leaks?) then you can do so by passing CPPUTEST_USE_MEM_LEAK_DETECTION=N to the makefile when you compile CppUTest.
+### Turning memory leak detection off and on
+
+If you want to disable the memory leak detection (because you got too much memory leaks?) then you can do so in several ways. However, it is strongly recommended to keep the memory leak detector on and fix your memory leaks (and your static initialization issues) as this tends to lead to higher quality code.
+
+You can turn the memory leak detection completely off by adding this to your main:
+
+{% highlight c++ %}
+
+int main(int argc, char** argv)
+{
+    MemoryLeakWarningPlugin::turnOffNewDeleteOverloads();
+    return CommandLineTestRunner::RunAllTests(argc, argv);
+}
+
+{% endhighlight %}
+
+You can do the same by turning it off on a test by test basis, by adding this to the test group:
+
+{% highlight c++ %}
+
+void setup()
+{   
+    MemoryLeakWarningPlugin::turnOffNewDeleteOverloads();
+}   
+
+void teardown()
+{   
+    MemoryLeakWarningPlugin::turnOnNewDeleteOverloads();
+}
+
+{% endhighlight %}
+
+(Do not forget to turn it on in the teardown again!)
+
+If you want to completely disable memory leak detection then you can do so by building CppUTest with "configure --disable-memory-leak-detection" or passing -DCPPUTEST_MEM_LEAK_DETECTION_DISABLED to the compiler when compiling CppUTest.
 
 ### Conflicts with operator new macros (STL!)
 
@@ -378,6 +414,111 @@ In larger projects, it is often useful if you can link the tests in "libraries o
 {% highlight make %}
    gcc -o test_executable production_library.a -Wl,-whole-archive test_library.a -Wl,-no-whole-archive $(OTHER_LIBRARIES)
 {% endhighlight %}
+
+<a id="gmock"> </a>
+## Using Google Mock
+
+You can use Google Mock directly in CppUTest. In order to do this, you'll need to build with the real google mock. You do that like this:
+
+{% highlight bash %}
+
+$ GMOCK_HOME = /location/of/gmock
+$ configure --enable-gmock
+$ make
+$ make install
+
+{% endhighlight %}
+
+Then in your tests, you can #include "CppUTestExt/GMock.h". Do remember to set the CPPUTEST_USE_REAL_GMOCK define (pass -DCPPUTEST_USE_REAL_GMOCK to the compiler). Also, do not forget to link the CppUTestExt library.
+
+This way you can use GMock directly in your code. For example:
+
+{% highlight c++ %}
+
+class MyMock : public ProductionInterface
+{
+public:
+	MOCK_METHOD0(methodName, int());
+};
+
+TEST(TestUsingGMock, UsingMyMock)
+{
+	NiceMock<MyMock> mock;
+	EXPECT_CALL(mock, methodName()).Times(2).WillRepeatedly(Return(1));
+	
+	productionCodeUsing(mock);
+}
+
+{% endhighlight %}
+
+The above will probably leak to the memory leak detector complaining about memory leaks (in google mock). These aren't really memory leaks, but they are static data that gtest (unfortunately) allocates on the first run. There are a couple of ways to get around that. First, you turn of the memory leak detector (see [Memory Leak Detection](#memory_leak_detection)). A better solutions is to use the GTestConvertor. 
+
+You can do that by adding the following code to your main:
+
+{% highlight c++ %}
+
+#include "CppUTestExt/GTestConvertor.h"
+
+int main(int argc, char** argv)
+{
+    GTestConvertor convertor;
+    return CommandLineTestRunner::RunAllTests(argc, argv);
+}
+
+{% endhighlight %}
+
+The most important line to add is the GTestConvertor. Make sure you define the CPPUTEST_USE_REAL_GTEST to signal the gtest dependency. (by adding -DCPPUTEST_USE_REAL_GTEST to the compiler)
+
+<a id="gtest"> </a>
+## Running Google Tests in CppUTest
+
+People feel wonderfully religious about unit testing tools. Of course, we feel strongly that CppUTest beats other tools when you actually test-drive your software. But unfortunately, people still use tools like GoogleTest (which is actually not as bad as e.g. CppUnit). It is unlikely that we're going to convince people to use CppUTest instead, so therefore we've written some integration code where you can actually link google test and CppUTest tests together in one binary (with the CppUTest test runner). THis also gives you some additional benefits:
+
+* You get memory leak detection over your google tests... 
+* You don't get the verbose gtest output
+* You can use both CppUMock and GMock in one project
+
+The way to do this is really quite simple. First, you'll need to compile CppUtest with the GTest support enabled (by default this is off to prevent the dependency with GTest). You do that this way (assuming you want to use GMock too):
+
+{% highlight bash %}
+
+$ GMOCK_HOME = /location/of/gmock
+$ configure --enable-gmock
+$ make
+$ make install
+
+{% endhighlight %}
+
+Or, if you don't want to use GMock and only GTest then:
+
+{% highlight bash %}
+
+$ GMOCK_HOME = /location/of/gtest
+$ configure --enable-real-gtest
+$ make
+$ make install
+
+{% endhighlight %}
+
+To let CppUTest know there are gtest being linked, you'll need to add the following to the main:
+
+{% highlight c++ %}
+
+#include "./include/CppUTestExt/GTestConvertor.h"
+
+int main(int argc, char** argv)
+{
+    GTestConvertor convertor;
+    convertor.addAllGTestToTestRegistry();
+    return CommandLineTestRunner::RunAllTests(argc, argv);
+}
+
+{% endhighlight %}
+
+(of course, you'll need make sure you link also gtest and also add it to the include path.)
+
+
+
 
 
 
