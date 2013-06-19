@@ -21,7 +21,7 @@ CppUTest has a couple design principles
 * [Scripts](#scripts)
 * [Advanced Stuff](#advanced)
 * [Using Google Mock](#gmock)
-* [Running Google Tests in CppUTest](#gmock)
+* [Running Google Tests in CppUTest](#gtest)
 
 <a id="getting_started"> </a>
 ## Getting Started
