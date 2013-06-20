@@ -14,6 +14,26 @@ CppUTest is based on the following design principles
 
 ## Where to get CppUTest
 
+### Pre-packaged
+
+*Linux*
+
+There is an Debian and Ubuntu package available for CppUTest. This is by far the easiest way to install it, via:
+
+{% highlight bash %}
+$ apt-get install cpputest
+{% endhighlight %}
+
+*MacOSX*
+
+For Mac, a Homebrew package is available too. You can install via:
+
+{% highlight bash %}
+$ brew install cpputest
+{% endhighlight %}
+
+### From source
+
 The download link for github is at the top of this page. You can either get the latest code or a specific release.
 
 You can find all the downloads [at the download page](https://github.com/cpputest/cpputest/downloads)
