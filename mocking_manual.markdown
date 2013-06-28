@@ -231,22 +231,27 @@ When using the MockPlugin (recommended), then its best to install the comparator
 <a id="return_values"> </a>
 ### Return Values
 
-Sometimes it is needed to let a mock function return a value which can then be used in production code. This can be done like:
+Sometimes it is needed to let a mock function return a value which can then be used in production code. The test code would look like this:
 
 {% highlight c++ %}
     mock().expectOneCall("function").andReturnValue(10);
 {% endhighlight %}
 
-And it can be used in the actual call like:
+The mock function would look like:
 
 {% highlight c++ %}
-    int value = mock().actualCall("function").returnValue().getIntValue();
+int function () {
+    return mock().actualCall("function").intReturnValue();
+}
 {% endhighlight %}
 
-or separate from the actualCall (below it!) like:
+or we could separate intReturnValue from the actualCall (below it!) like:
 
 {% highlight c++ %}
-    value = mock().returnValue().getIntValue();
+int function () {
+    mock().actualCall("function");
+    return mock().intReturnValue();
+}
 {% endhighlight %}
 
 The return value options are used to transfer data between the test and the mock object, they themselves do not cause the tests to fail.
