@@ -1,13 +1,13 @@
 <html xmlns:lxslt="http://xml.apache.org/xslt" xmlns:stringutils="xalan://org.apache.tools.ant.util.StringUtils">
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Unit Test Results: CommandLineArguments</title>
+<title>Unit Test Results: JUnitOutputTest</title>
 <link rel="stylesheet" type="text/css" title="Style" href="stylesheet.css">
 <script type="text/javascript" language="JavaScript">
         var TestCases = new Array();
         var cur;
         
-    cur = TestCases['.CommandLineArguments'] = new Array();
+    cur = TestCases['.JUnitOutputTest'] = new Array();
     </script><script type="text/javascript" language="JavaScript">
         function displayProperties (name) {
           var win = window.open('','JUnitSystemProperties','scrollbars=1,resizable=1');
@@ -46,13 +46,13 @@
 </tr>
 </table>
 <hr size="1">
-<h3>Class CommandLineArguments</h3>
+<h3>Class JUnitOutputTest</h3>
 <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
 <tr valign="top">
 <th width="80%">Name</th><th>Tests</th><th>Errors</th><th>Failures</th><th nowrap>Time(s)</th><th nowrap>Time Stamp</th><th>Host</th>
 </tr>
 <tr valign="top" class="Pass">
-<td><a title="Display all tests" href="4_CommandLineArguments.html">CommandLineArguments</a></td><td><a title="Display all tests" href="4_CommandLineArguments.html">23</a></td><td>0</td><td>0</td><td>0.000</td><td>2013-09-25T22:58:21</td><td>localhost</td>
+<td><a title="Display all tests" href="7_JUnitOutputTest.html">JUnitOutputTest</a></td><td><a title="Display all tests" href="7_JUnitOutputTest.html">20</a></td><td>0</td><td>0</td><td>0.001</td><td>2013-09-25T22:58:21</td><td>localhost</td>
 </tr>
 </table>
 <h2>Tests</h2>
@@ -61,77 +61,68 @@
 <th>Name</th><th>Status</th><th width="80%">Type</th><th nowrap>Time(s)</th>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="checkDefaultArguments"></a>checkDefaultArguments</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testGroupWithWeirdName"></a>testGroupWithWeirdName</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="pluginKnowsOption"></a>pluginKnowsOption</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="twoTestGroupsWriteToTwoDifferentFiles"></a>twoTestGroupsWriteToTwoDifferentFiles</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="weirdParamatersPrintsUsageAndReturnsFalse"></a>weirdParamatersPrintsUsageAndReturnsFalse</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testFailuresInSeparateGroups"></a>testFailuresInSeparateGroups</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="setOutputToGarbage"></a>setOutputToGarbage</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="aCoupleOfTestFailures"></a>aCoupleOfTestFailures</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="setJUnitOutputDifferentParameter"></a>setJUnitOutputDifferentParameter</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testFailureWithDifferentFileAndLine"></a>testFailureWithDifferentFileAndLine</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="setNormalOutputDifferentParameter"></a>setNormalOutputDifferentParameter</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testFailureWithNewlineInIt"></a>testFailureWithNewlineInIt</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="setEclipseOutput"></a>setEclipseOutput</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testFailureWithQuotesInIt"></a>testFailureWithQuotesInIt</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="setNormalOutput"></a>setNormalOutput</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testFailureWithLessThanAndGreaterThanInsideIt"></a>testFailureWithLessThanAndGreaterThanInsideIt</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="setTestToRunUsingVerboseOutputOfIgnoreTest"></a>setTestToRunUsingVerboseOutputOfIgnoreTest</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="withTwoTestGroupAndOneFailingTest"></a>withTwoTestGroupAndOneFailingTest</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="setTestToRunUsingVerboseOutput"></a>setTestToRunUsingVerboseOutput</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="withOneTestGroupAndOneFailingTest"></a>withOneTestGroupAndOneFailingTest</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="setNameFilterSameParameter"></a>setNameFilterSameParameter</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="withOneTestGroupAndMultipleTestCasesWithElapsedTime"></a>withOneTestGroupAndMultipleTestCasesWithElapsedTime</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="setStrictNameFilter"></a>setStrictNameFilter</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="withOneTestGroupAndTimeHasElapsedAndTimestampChanged"></a>withOneTestGroupAndTimeHasElapsedAndTimestampChanged</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="setNameFilter"></a>setNameFilter</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="withOneTestGroupAndTwoTestCasesCreateCorrectTestgroupBlockAndCorrectTestCaseBlock"></a>withOneTestGroupAndTwoTestCasesCreateCorrectTestgroupBlockAndCorrectTestCaseBlock</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="setStrictGroupFilterSameParameter"></a>setStrictGroupFilterSameParameter</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="withOneTestGroupAndOneTestFileShouldContainsATestCaseBlock"></a>withOneTestGroupAndOneTestFileShouldContainsATestCaseBlock</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="setStrictGroupFilter"></a>setStrictGroupFilter</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="withOneTestGroupAndOneTestFileShouldContainAnEmptyStderrBlock"></a>withOneTestGroupAndOneTestFileShouldContainAnEmptyStderrBlock</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="setGroupFilterSameParameter"></a>setGroupFilterSameParameter</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="withOneTestGroupAndOneTestFileShouldContainAnEmptyStdoutBlock"></a>withOneTestGroupAndOneTestFileShouldContainAnEmptyStdoutBlock</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="setGroupFilter"></a>setGroupFilter</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="withOneTestGroupAndOneTestFileShouldContainAnEmptyPropertiesBlock"></a>withOneTestGroupAndOneTestFileShouldContainAnEmptyPropertiesBlock</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="runningTestsInSeperateProcesses"></a>runningTestsInSeperateProcesses</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="withOneTestGroupAndOneTestoutputsTestSuiteStartAndEndBlocks"></a>withOneTestGroupAndOneTestoutputsTestSuiteStartAndEndBlocks</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="repeatSetDefaultsToTwo"></a>repeatSetDefaultsToTwo</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="withOneTestGroupAndOneTestOutputsValidXMLFiles"></a>withOneTestGroupAndOneTestOutputsValidXMLFiles</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="repeatSetDifferentParameter"></a>repeatSetDifferentParameter</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="repeatSet"></a>repeatSet</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="verboseSetMultipleParameters"></a>verboseSetMultipleParameters</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="Create"></a>Create</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="withOneTestGroupAndOneTestOnlyWriteToOneFile"></a>withOneTestGroupAndOneTestOnlyWriteToOneFile</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 </table>
 <div class="Properties">
-<a href="javascript:displayProperties('.CommandLineArguments');">
+<a href="javascript:displayProperties('.JUnitOutputTest');">
                     Properties &raquo;
                 </a>
 </div>
