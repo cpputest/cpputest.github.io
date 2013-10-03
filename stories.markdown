@@ -1,3 +1,8 @@
+---
+layout: default
+title: Useful CppUTest Application Stories
+---
+
 # Useful CppUTest Application Stories
 ## Table of Content
 * [Unit Testing With IAR Embedded Workbench](#iar)
