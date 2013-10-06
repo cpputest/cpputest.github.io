@@ -20,7 +20,7 @@ Pulling from git source was best way to download, since that simultaneously allo
 
 To build the CppUTest library in IAR, I created a new empty IAR project in the root folder of cpputest and made the following changes:
 
-```
+<pre>
 Project -> Options -> General Options -> Target -> Core = Cortex-M3.
 Project -> Options -> General Options -> Output -> Output file = Library
 Project -> Options -> General Options -> Output -> Executables/libraries = Debug (removed exe subdirectory)
@@ -31,13 +31,13 @@ Project -> Options -> C/C++ Compiler -> Preprocessor -> Additional include direc
 Project -> Options -> C/C++ Compiler -> Diagnostics -> Suppress these diagnostics = Pa050 (turn off warning about non-standard line endings)
 Added all .cpp files in src\CppUTest\
 Added src\Platforms\Iar\UtestPlatform.cpp
-```
+</pre>
 *Changed line 89 of UtestPlatform.cpp from return 1; to return t; which enables timing.
 CppUTest then builds successfully in both Debug and Release configurations, producing a CppUTest.a file*
 
 To build the CppUTest tests, I created a new empty IAR project in the root folder of cpputest, called it CppUTestTest, and made the following changes:
 
-```
+<pre>
 Project -> Options -> General Options -> Target -> Core = Cortex-M3.
 Project -> Options -> General Options -> Library Configuration -> Library low-level interface implementation = Semihosted
 Project -> Options -> C/C++ Compiler -> Language 1 -> Language = Auto
@@ -55,31 +55,31 @@ Changed tests\AllTests.cpp to declare a const char*[] with "-v" as the second el
 Built and ran in simulator.
 Turned on Debug->C++ Exceptions->Break on uncaught exception to intercept mysterious jumps to abort.
 With that out of the way I did the same for CppUTestExt and CppUTestExtTester, with no further dramas.
-```
+</pre>
 The stack/heap allocations were probably the largest source of drama, firstly because it wasn't clear that an out of memory situation had occurred. If the heap was exhausted a malloc/new would return zero, throw an exception and the debugger would jump to abort with no sign of the offensive statement. Turning on "Break on uncaught exception" helped. If the stack was exhausted, program behaviour was very hard to predict, and often it was in the course of trying to print out a useful error message that the stack would get corrupted! I found values of 0x600 and 0x8000 were narrowly enough to allow completion execution of the tests. It was a very tight fit though, since the Cortex-M3 architecture in IAR has 64kB of RAM on chip. With those allocations the map file showed these totals for the RAM region:
 
-```
+<pre>
 Static: 21056 bytes
 Heap: 32768 bytes
 iar.dynexit (atexit statics): 8760
 Stack:  1536 bytes
 Total:  64120 bytes out of 65535 bytes.
-```
+</pre>
 Turning off "Destroy static objects" might have given us another 8760 bytes to play with, but it's still pretty tight.
 
 As already noted, I also needed to make two changes to the source to build and run correctly. As far as I can see, these could be applied to the master:
 
-```
+<pre>
 src\Platforms\Iar\UtestPlatform.cpp:89 (return t;)
 tests\AllocLetTestFree.c:16 and  tests\AllocLetTestFree.c:22 (explicit types)
-```
+</pre>
 The third change to AllTests.cpp will probably only be important for IAR users, because there's no option to set command line arguments of the target executable in IAR.
 
 With the libraries and their tests built and run successfully, the next step was to create a test for a real project. I found the following to be a suitable procedure:
 Add a folder called tests to the target project's source hierarchy.
 Create AllTests.cpp with this content:
 
-```c++
+{% highlight c++ %}
 #include "CppUTest/CommandLineTestRunner.h"
 int main(int ac, char** av)
 {
@@ -112,11 +112,11 @@ TEST(FirstTestGroup, SecondTest)
 {
   STRCMP_EQUAL("hello", "world");
 }
-```
+{% endhighlight %}
 
 Then in the same directory as your target project's project file, create a new C++ main project called MyProjectTest. Make the following changes to Project -> Options:
 
-```
+<pre>
 General Options -> change Device to your target device
 General Options -> Library Configuration -> check "Use CMSIS" if it used in your target project
 C/C++ Compiler -> Language 1 -> Language = Auto
@@ -125,7 +125,7 @@ C/C++ Compiler -> Preprocessor -> Additional include directories = path\to\cpput
 C/C++ Compiler -> Preprocessor -> add any necessary #defines from the target project to Defined symbols
 C/C++ Compiler -> Diagnostics -> Suppress these diagnostics = Pa050
 Linker -> Config -> Override default with icf file used by target project
-```
+</pre>
 Ensure CSTACK is at least 0x600 and HEAP is at least 0x5000. If your target project already uses those regions, expand accordingly, otherwise ensure they're placed somewhere where they'll fit.
 
 Remove main.cpp and add AllTests.cpp, MyCodeTest.cpp and Debug\CppUTest.a (use Debug version so breakpoints can be used in code and there's an inconsequential performance/size hit).
