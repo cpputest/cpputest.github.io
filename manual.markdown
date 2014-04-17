@@ -201,6 +201,7 @@ The test execution of this will *likely* (no guarantee of order in CppUTest) be:
 * *-g* group only run test whose group contains the substring group
 * *-n* name only run test whose name contains the substring name
 * *-ojunit* output to JUnit ant plugin style xml files (for CI systems)
+* *-k* package name, Add a package name in JUnit output (for classification in CI systems)
 
 <a id="memory_leak_detection"> </a>
 ## Memory Leak Detection
