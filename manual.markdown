@@ -24,6 +24,7 @@ CppUTest has a couple design principles
 * [Running Google Tests in CppUTest](#gtest)
 
 <a id="getting_started"> </a>
+
 ## Getting Started
 
 ### Your first test
@@ -106,6 +107,7 @@ You need to add CppUTest library to the linker flags, for example, like:
 (The last flags is only needed when you want to use extensions such as mocking)
 
 <a id="test_macros"> </a>
+
 ## Test Macros
 
 
@@ -124,6 +126,7 @@ You need to add CppUTest library to the linker flags, for example, like:
 * Setup is called prior to each TEST body and Teardown is called after the test body
 
 <a id="assertions"> </a>
+
 ## Assertions
 
 The failure of one of these macros causes the current test to immediately exit:
@@ -139,6 +142,7 @@ The failure of one of these macros causes the current test to immediately exit:
 * FAIL(text) - always fails
 
 <a id="setup_teardown"> </a>
+
 ## Setup and Teardown
 
 Every test group can have a setup and a teardown method. The setup method is called *before* each test and the teardown method is called *after* each test.
@@ -194,6 +198,7 @@ The test execution of this will *likely* (no guarantee of order in CppUTest) be:
 * teardown FooTestGroup 
 
 <a id="command_line"> </a>
+
 ## Command line Switches
 
 * *-v* verbose, print each test name as it runs
@@ -204,6 +209,7 @@ The test execution of this will *likely* (no guarantee of order in CppUTest) be:
 * *-k* package name, Add a package name in JUnit output (for classification in CI systems)
 
 <a id="memory_leak_detection"> </a>
+
 ## Memory Leak Detection
 
 CppUTest has memory leak detection support on a per-test level. This means that it automatically checks whether the memory at the end of a test is the same as at the beginning of the test.
@@ -307,6 +313,7 @@ Yes, its ugly. But usually people don't overload operator new everywhere. If you
 Tbd
 
 <a id="test_plugins"> </a>
+
 ## Test Plugins
 
 Test plugins let you add a preaction and a post action to each test case.  Plugin examples:
@@ -382,12 +389,14 @@ void printHelloWorld()
 {% endhighlight %}
 
 <a id="scripts"> </a>
+
 ## Scripts
 
 There are some scripts that are helpful in creating your initial h, source, and 
 Test files.  These save a lot of typing.  See scripts/README.TXT from the CppUTest distribution.
 
 <a id="advanced"> </a>
+
 ## Advanced
 
 ### Customize CHECK_EQUAL to work with your types that support operator==()
@@ -472,6 +481,7 @@ int main(int argc, char** argv)
 The most important line to add is the GTestConvertor. Make sure you define the CPPUTEST_USE_REAL_GTEST to signal the gtest dependency. (by adding -DCPPUTEST_USE_REAL_GTEST to the compiler)
 
 <a id="gtest"> </a>
+
 ## Running Google Tests in CppUTest
 
 People feel wonderfully religious about unit testing tools. Of course, we feel strongly that CppUTest beats other tools when you actually test-drive your software. But unfortunately, people still use tools like GoogleTest (which is actually not as bad as e.g. CppUnit). It is unlikely that we're going to convince people to use CppUTest instead, so therefore we've written some integration code where you can actually link google test and CppUTest tests together in one binary (with the CppUTest test runner). THis also gives you some additional benefits:
