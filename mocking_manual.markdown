@@ -29,6 +29,7 @@ The main idea is to make manual mocking easier, rather than to make automated mo
 * [C Interface](#c_interface)
 
 <a id="simple_scenario"> </a>
+
 ### Simple Scenario
 
 About the simplest scenario is to check that one particular function call has happened. The below code is an example of this:
@@ -99,6 +100,7 @@ If the call to productionCode wouldn't happen, then the test would fail with the
             <none>
 
 <a id="objects"> </a>
+
 ### Using Objects
 
 Simple scenario using objects
@@ -150,6 +152,7 @@ If the call to a wrong object happens, it would give the following error message
             <none>
 
 <a id="parameters"> </a>
+
 ### Parameters
 
 Of course, just checked whether a function is called is not particularly useful when we cannot check the parameters. Recording parameters on a function is done like this:
@@ -175,6 +178,7 @@ If a parameter isn't passed, it will give the following error:
             int p1, char* p2
 
 <a id="objects_as_parameters"> </a>
+
 ### Objects as Parameters
 
 withParameters can only use int, double, const char* or void* . However, parameters are often objects of other types and not of the basic types. How to handle objects as parameters? Below is an example:
@@ -230,6 +234,7 @@ Comparators are *not* copied, instead it uses the exact instance as passed to th
 When using the MockPlugin (recommended), then its best to install the comparators via the MockPlugin or put them in global space. The checkExpectations will be called *after* teardown and if your comparator was destroyed in the teardown then this will cause a crash.
 
 <a id="output_parameters"> </a>
+
 ### Output Parameters
 
 Some parameters do not represent data passed to the called function, but are passed by reference so that the function can 'return' a value by modifying the pointed-to data.
@@ -283,6 +288,7 @@ mock().expectOneCall("Foo").withOutputParameterReturning("bar", &doubleOutputVal
 * When an char, int, etc. array is passed to withOutputParameter, you must use the generic withOutputParameterReturning and provide the actual size of the array or only one element will be copied.
 
 <a id="return_values"> </a>
+
 ### Return Values
 
 Sometimes it is needed to let a mock function return a value which can then be used in production code. The test code would look like this:
@@ -311,6 +317,7 @@ int function () {
 The return value options are used to transfer data between the test and the mock object, they themselves do not cause the tests to fail.
 
 <a id="other_data"> </a>
+
 ### Passing other data
 
 Sometimes a test wants to pass more data to the mock object to, for example, vary only a couple of parameters in a calculation. This can be done like this:
@@ -332,6 +339,7 @@ pobject = (ClassFromProductionCode*) mock().getData("importantObject").getObject
 Like return values. Setting data will not ever make a test fail but it provides support in building mock objects.
 
 <a id="other_mock_support"> </a>
+
 ### Other MockSupport - ignoring, enabling, clearing, crashing
 
 MockSupport offers a couple of other useful functions, which will be covered in this section.
@@ -376,6 +384,7 @@ When using gdb, get a stack trace using:
 (r is run, it will run until crashes. bt is back trace which will produce a stack)
 
 <a id="mock_scope"> </a>
+
 ### MockSupport Scope
 
 MockSupport can be used hierarchically using MockSupport scope. This sounds really complex, but in reality it is very simple. When getting a mock support using the mock function, you can pass a namespace or scope and record the expectations (or do other things) inside this scope. For example:
@@ -404,6 +413,7 @@ mock("filesystem").ignoreOtherCalls();
 {% endhighlight %}
 
 <a id="mock_plugin"> </a>
+
 ### MockPlugin
 
 CppUTest plugins can be installed in the main and 'extent' the unit test framework. It is a place where you can put work that needs to be done in all unit tests. There is a MockPlugin to make the work with mocks easier. It does the following work:
@@ -424,6 +434,7 @@ TestRegistry::getCurrentRegistry()->installPlugin(&mockPlugin);
 {% endhighlight %}
 
 <a id="c_interface"> </a>
+
 ### C Interface
 
 This code creates a comparator for MyDummy and installs it at the plugin. This means the comparator is available for all test cases. It creates the plugin and installs it at the current test registry. After installing the plugin, you don't have to worry too much anymore about calling checkExpectations or cleaning your MockSupport.
