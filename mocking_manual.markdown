@@ -20,6 +20,7 @@ The main idea is to make manual mocking easier, rather than to make automated mo
 * [Using Objects](#objects)
 * [Using Parameters](#parameters)
 * [Objects as Parameters](#objects_as_parameters)
+* [Output Parameters](#output_parameters)
 * [Return Values](#return_values)
 * [Passing other data](#other_data)
 * [Other MockSupport](#other_mock_support)
@@ -62,7 +63,7 @@ The only additional include for mocking is CppUTestExt/MockSupport.h which is th
 The TEST(MockDocumentation, SimpleScenario) contains the recording of the expectations as:
 
 {% highlight c++ %}
-    mock().expectOneCall("productionCode");
+mock().expectOneCall("productionCode");
 {% endhighlight %}
 
 The call to mock() return the global MockSupport (more about that later) on which we can record our expectations. In this example, we'll call expectOneCall("productionCode") which... records an expectation for *one* call to a function called productionCode.
@@ -70,7 +71,7 @@ The call to mock() return the global MockSupport (more about that later) on whic
 The productionCode call is to show a call to whatever your real code is. The test ends with checking whether the expectations have been met. This is done with the:
 
 {% highlight c++ %}
-    mock().checkExpectations();
+mock().checkExpectations();
 {% endhighlight %}
 
 This call is needed when *not* using the MockSupportPlugin, otherwise this is done automatically for every single test. Also, the call to mock().clear() in the teardown is *not* needed when using the MockSupportPlugin, otherwise it is needed to clear the MockSupport. Without the clear, the memory leak detector will report the mock calls as leaks.
@@ -154,13 +155,13 @@ If the call to a wrong object happens, it would give the following error message
 Of course, just checked whether a function is called is not particularly useful when we cannot check the parameters. Recording parameters on a function is done like this:
 
 {% highlight c++ %}
-    mock().expectOneCall("function").onObject(object).withParameter("p1", 2).withParameter("p2", "hah");
+mock().expectOneCall("function").onObject(object).withParameter("p1", 2).withParameter("p2", "hah");
 {% endhighlight %}
 
 And the actual call is like:
 
 {% highlight c++ %}
-    mock().actualCall("function").onObject(this).withParameter("p1", p1).withParameter("p2", p2);
+mock().actualCall("function").onObject(this).withParameter("p1", p1).withParameter("p2", p2);
 {% endhighlight %}
 
 If a parameter isn't passed, it will give the following error:
@@ -179,14 +180,14 @@ If a parameter isn't passed, it will give the following error:
 withParameters can only use int, double, const char* or void* . However, parameters are often objects of other types and not of the basic types. How to handle objects as parameters? Below is an example:
 
 {% highlight c++ %}
-    mock().expectOneCall("function").withParameterOfType("myType", "parameterName", object);
+mock().expectOneCall("function").withParameterOfType("myType", "parameterName", object);
 {% endhighlight %}
 
 When using withParameterOfType, the mocking framework needs to know how to compare the type and therefore a Comparator has to be installed before using parameters of this type. This is done using installComparator, as below:
 
 {% highlight c++ %}
-    MyTypeComparator comparator;
-    mock().installComparator("myType", comparator);
+MyTypeComparator comparator;
+mock().installComparator("myType", comparator);
 {% endhighlight %}
 
 MyTypeComparator is a custom comparator, which implements the MockNamedValueComparator interface. For example:
@@ -211,7 +212,7 @@ The isEqual is called to compare the two parameters. The valueToString is called
 To remove the comparators, all you needs to do is call removeAllComparators, like:
 
 {% highlight c++ %}
-    mock().removeAllComparators();
+mock().removeAllComparators();
 {% endhighlight %}
 
 Comparators sometimes lead to surprised, so a couple of warnings on its usage:
@@ -228,13 +229,66 @@ Comparators are *not* copied, instead it uses the exact instance as passed to th
 
 When using the MockPlugin (recommended), then its best to install the comparators via the MockPlugin or put them in global space. The checkExpectations will be called *after* teardown and if your comparator was destroyed in the teardown then this will cause a crash.
 
+<a id="output_parameters"> </a>
+### Output Parameters
+
+Some parameters do not represent data passed to the called function, but are passed by reference so that the function can 'return' a value by modifying the pointed-to data.
+
+CppUMock allows the value of these output parameters to be specified in the expected call:
+
+{% highlight c++ %}
+int outputValue = 4;
+mock().expectOneCall("Foo").withOutputParameterReturning("bar", &outputValue, sizeof(outputValue));
+{% endhighlight %}
+
+...and written during the actual call:
+
+{% highlight c++ %}
+void Foo(int *bar)
+{
+    mock().actualCall("foo").withOutputParameter("bar", bar);
+}
+{% endhighlight %}
+
+After the actual call, the bar parameter passed to function Foo will have the value specified in the expected call (4, in this case).
+
+*Warning 1:*
+
+* CppUMock _does not_ and _cannot_ prevent invalid memory accesses when using output parameters. It will memcpy exactly the number of bytes specified in the withOutputParameterReturning call. A segmentation fault may occur if this is larger than the data pointed to by the output parameter provided in the actual call.
+
+Function overloads of withOutputParameterReturning are provided for char, int, unsigned, long, unsigned long, and double types so that the size parameter may be omitted:
+
+{% highlight c++ %}
+char charOutputValue = 'a';
+mock().expectOneCall("Foo").withOutputParameterReturning("bar", &charOutputValue);
+
+int intOutputValue = 4;
+mock().expectOneCall("Foo").withOutputParameterReturning("bar", &intOutputValue);
+
+unsigned unsignedOutputValue = 4;
+mock().expectOneCall("Foo").withOutputParameterReturning("bar", &unsignedOutputValue);
+
+long longOutputValue = 4;
+mock().expectOneCall("Foo").withOutputParameterReturning("bar", &longOutputValue);
+
+unsigned long unsignedLongOutputValue = 4;
+mock().expectOneCall("Foo").withOutputParameterReturning("bar", &unsignedLongOutputValue);
+
+double doubleOutputValue = 4;
+mock().expectOneCall("Foo").withOutputParameterReturning("bar", &doubleOutputValue);
+{% endhighlight %}
+
+*Warning 2:*
+
+* When an char, int, etc. array is passed to withOutputParameter, you must use the generic withOutputParameterReturning and provide the actual size of the array or only one element will be copied.
+
 <a id="return_values"> </a>
 ### Return Values
 
 Sometimes it is needed to let a mock function return a value which can then be used in production code. The test code would look like this:
 
 {% highlight c++ %}
-    mock().expectOneCall("function").andReturnValue(10);
+mock().expectOneCall("function").andReturnValue(10);
 {% endhighlight %}
 
 The mock function would look like:
@@ -262,17 +316,17 @@ The return value options are used to transfer data between the test and the mock
 Sometimes a test wants to pass more data to the mock object to, for example, vary only a couple of parameters in a calculation. This can be done like this:
 
 {% highlight c++ %}
-    ClassFromProductionCode object;
-    mock().setData("importantValue", 10);
-    mock().setDataObject("importantObject", "ClassFromProductionCode", &object);
+ClassFromProductionCode object;
+mock().setData("importantValue", 10);
+mock().setDataObject("importantObject", "ClassFromProductionCode", &object);
 {% endhighlight %}
 
 And it can be used in the mock object like:
 
 {% highlight c++ %}
-    ClassFromProductionCode * pobject;
-    int value = mock().getData("importantValue").getIntValue();
-    pobject = (ClassFromProductionCode*) mock().getData("importantObject").getObjectPointer();
+ClassFromProductionCode * pobject;
+int value = mock().getData("importantValue").getIntValue();
+pobject = (ClassFromProductionCode*) mock().getData("importantObject").getObjectPointer();
 {% endhighlight %}
 
 Like return values. Setting data will not ever make a test fail but it provides support in building mock objects.
@@ -285,8 +339,8 @@ MockSupport offers a couple of other useful functions, which will be covered in 
 Frequently, you only want to check a couple of calls in your test and ignore all the other calls. If you add expectOneCall for each of these calls, you're tests might become too large (though, it might be a smell that your test is indeed too large). One way to prevent this is the ignoreOtherCalls, like:
 
 {% highlight c++ %}
-    mock().expectOneCall("foo");
-    mock().ignoreOtherCalls();
+mock().expectOneCall("foo");
+mock().ignoreOtherCalls();
 {% endhighlight %}
 
 This will check that one call of foo happens (and only one call!), but all other calls will be ignored (such as "bar").
@@ -294,15 +348,15 @@ This will check that one call of foo happens (and only one call!), but all other
 Sometimes, you don't want to just ignore calls, but instead disable the whole mocking framework for a while (too do *something*). This happens sometimes in initialization where you might want to do *something* without the mocking framework checking calls. You can do this by enabling/disabling such as:
 
 {% highlight c++ %}
-    mock().disable();
-    doSomethingThatWouldOtherwiseBlowUpTheMockingFramework();
-    mock().enable();
+mock().disable();
+doSomethingThatWouldOtherwiseBlowUpTheMockingFramework();
+mock().enable();
 {% endhighlight %}
 
 If you want to clear all the expectations, settings, and comparators, call clear:
 
 {% highlight c++ %}
-    mock().clear();
+mock().clear();
 {% endhighlight %}
 
 Clear won't do checkExpectations, but just erase everything and start over. Usually clear() is called after a checkExpectations.
@@ -310,7 +364,7 @@ Clear won't do checkExpectations, but just erase everything and start over. Usua
 Sometimes, a mock actual call happens, but you cannot figure out from where it is called. If you only had a call stack, then it you could track it. Well, unfortunately, the mocking framework doesn't print stack traces, but it can crash! If you call the crashOnFailure on the MockSupport, then it will crash so that you can use the debugger to get a stack trace. like:
 
 {% highlight c++ %}
-    mock().crashOnFailure();
+mock().crashOnFailure();
 {% endhighlight %}
 
 When using gdb, get a stack trace using:
@@ -327,26 +381,26 @@ When using gdb, get a stack trace using:
 MockSupport can be used hierarchically using MockSupport scope. This sounds really complex, but in reality it is very simple. When getting a mock support using the mock function, you can pass a namespace or scope and record the expectations (or do other things) inside this scope. For example:
 
 {% highlight c++ %}
-    mock("xmlparser").expectOneCall("open");
+mock("xmlparser").expectOneCall("open");
 {% endhighlight %}
 
 The actual call then has to look like this:
 
 {% highlight c++ %}
-    mock("xmlparser").actualCall("open");
+mock("xmlparser").actualCall("open");
 {% endhighlight %}
 
 A call on another namespace won't work, for example this won't match the call to xmlparser open:
 
 {% highlight c++ %}
-    mock("").actualCall("open");
+mock("").actualCall("open");
 {% endhighlight %}
 
 Keeping calls in namespaces makes it easy to ignore one type of call and focus on another, for example:
 
 {% highlight c++ %}
-    mock("xmlparser").expectOneCall("open");
-    mock("filesystem").ignoreOtherCalls();
+mock("xmlparser").expectOneCall("open");
+mock("filesystem").ignoreOtherCalls();
 {% endhighlight %}
 
 <a id="mock_plugin"> </a>
@@ -362,11 +416,11 @@ CppUTest plugins can be installed in the main and 'extent' the unit test framewo
 Installing the MockPlugin means you'll have to add to main something like:
 
 {% highlight c++ %}
-    MyDummyComparator dummyComparator;
-    MockSupportPlugin mockPlugin;
+MyDummyComparator dummyComparator;
+MockSupportPlugin mockPlugin;
 
-    mockPlugin.installComparator("MyDummyType", dummyComparator);
-    TestRegistry::getCurrentRegistry()->installPlugin(&mockPlugin);
+mockPlugin.installComparator("MyDummyType", dummyComparator);
+TestRegistry::getCurrentRegistry()->installPlugin(&mockPlugin);
 {% endhighlight %}
 
 <a id="c_interface"> </a>
@@ -377,20 +431,20 @@ This code creates a comparator for MyDummy and installs it at the plugin. This m
 Sometimes it is useful to access the mocking framework from a .c file rather than a .cpp file. For example, perhaps, for some reason, the stubs are implemented in a .c file rather than a .cpp file. Instead of changing over all to .cpp, it would be easier if the mocking framework can be called via C. The C interface is exactly meant for this. The interface is based on the C++ one, so below is some code and it ought to be easy to figure out what it does (if you've read all that was written earlier):
 
 {% highlight c++ %}
-    #include "CppUTestExt/MockSupport_c.h"
+#include "CppUTestExt/MockSupport_c.h"
 
-    mock_c()->expectOneCall("foo")->withIntParameters("integer", 10)->andReturnDoubleValue(1.11);
-    mock_c()->actualCall("foo")->withIntParameters("integer", 10)->returnValue().value.doubleValue;
+mock_c()->expectOneCall("foo")->withIntParameters("integer", 10)->andReturnDoubleValue(1.11);
+mock_c()->actualCall("foo")->withIntParameters("integer", 10)->returnValue().value.doubleValue;
 
-    mock_c()->installComparator("type", equalMethod, toStringMethod);
-    mock_scope_c("scope")->expectOneCall("bar")->withParameterOfType("type", "name", object);
-    mock_scope_c("scope")->actualCall("bar")->withParameterOfType("type", "name", object);
-    mock_c()->removeAllComparators();
+mock_c()->installComparator("type", equalMethod, toStringMethod);
+mock_scope_c("scope")->expectOneCall("bar")->withParameterOfType("type", "name", object);
+mock_scope_c("scope")->actualCall("bar")->withParameterOfType("type", "name", object);
+mock_c()->removeAllComparators();
 
-    mock_c()->setIntData("important", 10);
+mock_c()->setIntData("important", 10);
 
-    mock_c()->checkExpectations();
-    mock_c()->clear();
+mock_c()->checkExpectations();
+mock_c()->clear();
 {% endhighlight %}
 
 The C interface uses a similar builder structure as the C++ interface. It is far less common in C, but it works the same.
