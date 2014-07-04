@@ -52,7 +52,6 @@ $ git clone git@github.com:cpputest/cpputest.git
 
 ## Where to find more information
 
-* The CppUTest manual can be found at [CppUTest.org](http://www.cpputest.org/)
 * If you have any question, check out the [Google Groups](https://groups.google.com/forum/?fromgroups#!forum/cpputest)
 * The source is at the [main github page](https://github.com/cpputest/cpputest)
 * You can report bugs or features at [the issues page](https://github.com/cpputest/cpputest/issues)
