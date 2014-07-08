@@ -426,6 +426,9 @@ CppUTest plugins can be installed in the main and 'extent' the unit test framewo
 Installing the MockPlugin means you'll have to add to main something like:
 
 {% highlight c++ %}
+#include "CppUTest/TestRegistry.h"
+#include "CppUTestExt/MockSupportPlugin.h"
+
 MyDummyComparator dummyComparator;
 MockSupportPlugin mockPlugin;
 
