@@ -436,11 +436,11 @@ mockPlugin.installComparator("MyDummyType", dummyComparator);
 TestRegistry::getCurrentRegistry()->installPlugin(&mockPlugin);
 {% endhighlight %}
 
+This code creates a comparator for MyDummy and installs it at the plugin. This means the comparator is available for all test cases. It creates the plugin and installs it at the current test registry. After installing the plugin, you don't have to worry too much anymore about calling checkExpectations or cleaning your MockSupport.
+
 <a id="c_interface"> </a>
 
 ### C Interface
-
-This code creates a comparator for MyDummy and installs it at the plugin. This means the comparator is available for all test cases. It creates the plugin and installs it at the current test registry. After installing the plugin, you don't have to worry too much anymore about calling checkExpectations or cleaning your MockSupport.
 
 Sometimes it is useful to access the mocking framework from a .c file rather than a .cpp file. For example, perhaps, for some reason, the stubs are implemented in a .c file rather than a .cpp file. Instead of changing over all to .cpp, it would be easier if the mocking framework can be called via C. The C interface is exactly meant for this. The interface is based on the C++ one, so below is some code and it ought to be easy to figure out what it does (if you've read all that was written earlier):
 
