@@ -202,6 +202,7 @@ The test execution of this will *likely* (no guarantee of order in CppUTest) be:
 ## Command line Switches
 
 * *-v* verbose, print each test name as it runs
+* *-c* colorize output, print green if OK, or red if failed
 * *-r#* repeat the tests some number (#) of times, or two times if # is not specified. This is handy if you are experiencing memory leaks. A second run that has no leaks indicates that someone is allocating statics and not releasing them.
 * *-g* group only run test whose group contains the substring group
 * *-n* name only run test whose name contains the substring name
