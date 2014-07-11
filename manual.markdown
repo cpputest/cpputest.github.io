@@ -134,7 +134,7 @@ The failure of one of these macros causes the current test to immediately exit:
 * CHECK(boolean condition) - checks any boolean result.
 * CHECK_TEXT(boolean condition, text) - checks any boolean result and prints text on failure.
 * CHECK_EQUAL(expected, actual) - checks for equality between entities using ==. So if you have a class that supports operator==() you can use this macro to compare two instances.  You will also need to add a StringFrom() function like those found in SimpleString. This is for printing the objects when the check failed.
-* CHECK_THROWS(expected_excpetion, expression) - checks if expression throws excpected_exception (e.g. std::exception). CHECK_THROWS is only available if CppUTest is built with the Standard C++ Library (default).
+* CHECK_THROWS(expected_exception, expression) - checks if expression throws expected_exception (e.g. std::exception). CHECK_THROWS is only available if CppUTest is built with the Standard C++ Library (default).
 * STRCMP_EQUAL(expected, actual) - check const char* strings for equality using strcmp().
 * LONGS_EQUAL(expected, actual) - Compares two numbers.
 * BYTES_EQUAL(expected, actual) - Compares two numbers, eight bits wide.
