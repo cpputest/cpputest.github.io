@@ -134,6 +134,7 @@ The failure of one of these macros causes the current test to immediately exit:
 * CHECK(boolean condition) - checks any boolean result.
 * CHECK_TEXT(boolean condition, text) - checks any boolean result and prints text on failure.
 * CHECK_EQUAL(expected, actual) - checks for equality between entities using ==. So if you have a class that supports operator==() you can use this macro to compare two instances.  You will also need to add a StringFrom() function like those found in SimpleString. This is for printing the objects when the check failed.
+* CHECK_THROWS(expected_excpetion, expression) - checks if expression throws excpected_exception (e.g. std::exception). CHECK_THROWS is only available if CppUTest is built with the Standard C++ Library (default).
 * STRCMP_EQUAL(expected, actual) - check const char* strings for equality using strcmp().
 * LONGS_EQUAL(expected, actual) - Compares two numbers.
 * BYTES_EQUAL(expected, actual) - Compares two numbers, eight bits wide.
@@ -142,6 +143,22 @@ The failure of one of these macros causes the current test to immediately exit:
 * FAIL(text) - always fails
 
 <a id="setup_teardown"> </a>
+
+*Warning 1:*
+
+CHECK_EQUAL(expected, actual) can produce misleading error reports when used with mocks if expected and actual don't match. This happens if the mock function expects to be called exactly once, since the macro needs to evaluate the actual expression twice in case of error. The problem does not occur with type specific checks (e.g. LONGS_EQUAL()), so it is recommended to use them if possible. Instead of: 
+
+{% highlight c++ %}
+CHECK_EQUAL(10, mock_returning_11())
+{% endhighlight %}
+
+which reports: Mock Failure: Unexpected additional call, rather use
+
+{% highlight c++ %}
+LONGS_EQUAL(10, mock_returning_11()) // reports actual different from expected
+{% endhighlight %}
+
+This issue could only be avoided with advanced language features like C++ templates, which would violate the CppUTest design goal portability to old environments.
 
 ## Setup and Teardown
 
