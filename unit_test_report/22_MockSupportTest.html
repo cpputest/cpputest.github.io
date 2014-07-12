@@ -1,0 +1,466 @@
+<html xmlns:lxslt="http://xml.apache.org/xslt" xmlns:stringutils="xalan://org.apache.tools.ant.util.StringUtils">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Unit Test Results: MockSupportTest</title>
+<link rel="stylesheet" type="text/css" title="Style" href="stylesheet.css">
+<script type="text/javascript" language="JavaScript">
+        var TestCases = new Array();
+        var cur;
+        
+    cur = TestCases['.MockSupportTest'] = new Array();
+    </script><script type="text/javascript" language="JavaScript">
+        function displayProperties (name) {
+          var win = window.open('','JUnitSystemProperties','scrollbars=1,resizable=1');
+          var doc = win.document;
+          doc.open();
+          doc.write("<html><head><title>Properties of " + name + "</title>");
+          doc.write("<style type=\"text/css\">");
+          doc.write("body {font:normal 68% verdana,arial,helvetica; color:#000000; }");
+          doc.write("table tr td, table tr th { font-size: 68%; }");
+          doc.write("table.properties { border-collapse:collapse; border-left:solid 1 #cccccc; border-top:solid 1 #cccccc; padding:5px; }");
+          doc.write("table.properties th { text-align:left; border-right:solid 1 #cccccc; border-bottom:solid 1 #cccccc; background-color:#eeeeee; }");
+          doc.write("table.properties td { font:normal; text-align:left; border-right:solid 1 #cccccc; border-bottom:solid 1 #cccccc; background-color:#fffffff; }");
+          doc.write("h3 { margin-bottom: 0.5em; font: bold 115% verdana,arial,helvetica }");
+          doc.write("</style>");
+          doc.write("</head><body>");
+          doc.write("<h3>Properties of " + name + "</h3>");
+          doc.write("<div align=\"right\"><a href=\"javascript:window.close();\">Close</a></div>");
+          doc.write("<table class='properties'>");
+          doc.write("<tr><th>Name</th><th>Value</th></tr>");
+          for (prop in TestCases[name]) {
+            doc.write("<tr><th>" + prop + "</th><td>" + TestCases[name][prop] + "</td></tr>");
+          }
+          doc.write("</table>");
+          doc.write("</body></html>");
+          doc.close();
+          win.focus();
+        }
+      
+      </script>
+</head>
+<body>
+<h1>Unit Test Results.</h1>
+<table width="100%">
+<tr>
+<td align="left"></td><td align="right">Designed for use with <a href="http://www.junit.org/">JUnit</a> and <a href="http://ant.apache.org/">Ant</a>.</td>
+</tr>
+</table>
+<hr size="1">
+<h3>Class MockSupportTest</h3>
+<table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
+<tr valign="top">
+<th width="80%">Name</th><th>Tests</th><th>Errors</th><th>Failures</th><th nowrap>Time(s)</th><th nowrap>Time Stamp</th><th>Host</th>
+</tr>
+<tr valign="top" class="Pass">
+<td><a title="Display all tests" href="22_MockSupportTest.html">MockSupportTest</a></td><td><a title="Display all tests" href="22_MockSupportTest.html">132</a></td><td>0</td><td>0</td><td>0.003</td><td>2014-07-12T09:42:35</td><td>localhost</td>
+</tr>
+</table>
+<h2>Tests</h2>
+<table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
+<tr valign="top">
+<th>Name</th><th>Status</th><th width="80%">Type</th><th nowrap>Time(s)</th>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="testForPerformanceProfiling"></a>testForPerformanceProfiling</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="shouldSupportConstParameters"></a>shouldSupportConstParameters</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="shouldntFailTwice"></a>shouldntFailTwice</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="tracing"></a>tracing</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="whenCallingDisabledOrIgnoredActualCallsThenTheyDontReturnPreviousCallsValues"></a>whenCallingDisabledOrIgnoredActualCallsThenTheyDontReturnPreviousCallsValues</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectMultipleMultipleCallsWithParameters"></a>expectMultipleMultipleCallsWithParameters</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectMultipleCallsWithParameters"></a>expectMultipleCallsWithParameters</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectMultipleCalls"></a>expectMultipleCalls</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="OnObjectExpectedButNotCalled"></a>OnObjectExpectedButNotCalled</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="OnObjectFails"></a>OnObjectFails</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="OnObject"></a>OnObject</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="ConstPointerReturnValue"></a>ConstPointerReturnValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="PointerReturnValue"></a>PointerReturnValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="WhenNoPointerReturnValueIsDefinedButThereIsADefaultShouldlUseTheDefaultValue"></a>WhenNoPointerReturnValueIsDefinedButThereIsADefaultShouldlUseTheDefaultValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="WhenAPointerReturnValueIsDefinedAndAlsoThereIsADefaultShouldlIgnoreTheDefault"></a>WhenAPointerReturnValueIsDefinedAndAlsoThereIsADefaultShouldlIgnoreTheDefault</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="DoubleReturnValue"></a>DoubleReturnValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="StringReturnValue"></a>StringReturnValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="WhenNoStringReturnValueIsDefinedButThereIsADefaultShouldlUseTheDefaultValue"></a>WhenNoStringReturnValueIsDefinedButThereIsADefaultShouldlUseTheDefaultValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="WhenAStringReturnValueIsDefinedAndAlsoThereIsADefaultShouldlIgnoreTheDefault"></a>WhenAStringReturnValueIsDefinedAndAlsoThereIsADefaultShouldlIgnoreTheDefault</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="MatchingReturnValueOnWhileSignature"></a>MatchingReturnValueOnWhileSignature</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="UnsignedLongIntegerReturnValueSetsDifferentValuesWhileParametersAreIgnored"></a>UnsignedLongIntegerReturnValueSetsDifferentValuesWhileParametersAreIgnored</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="UnsignedLongIntegerReturnValueSetsDifferentValues"></a>UnsignedLongIntegerReturnValueSetsDifferentValues</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="UnsignedLongIntegerReturnValue"></a>UnsignedLongIntegerReturnValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="LongIntegerReturnValueSetsDifferentValuesWhileParametersAreIgnored"></a>LongIntegerReturnValueSetsDifferentValuesWhileParametersAreIgnored</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="LongIntegerReturnValueSetsDifferentValues"></a>LongIntegerReturnValueSetsDifferentValues</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="LongIntegerReturnValue"></a>LongIntegerReturnValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="IntegerReturnValueSetsDifferentValuesWhileParametersAreIgnored"></a>IntegerReturnValueSetsDifferentValuesWhileParametersAreIgnored</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="IntegerReturnValueSetsDifferentValues"></a>IntegerReturnValueSetsDifferentValues</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="IntegerReturnValue"></a>IntegerReturnValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="WhenNoIntegerReturnValueIsDefinedButThereIsADefaultShouldlUseTheDefaultValue"></a>WhenNoIntegerReturnValueIsDefinedButThereIsADefaultShouldlUseTheDefaultValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="WhenAIntegerReturnValueIsDefinedAndAlsoThereIsADefaultShouldlIgnoreTheDefault"></a>WhenAIntegerReturnValueIsDefinedAndAlsoThereIsADefaultShouldlIgnoreTheDefault</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="WhenNoUnsignedIntegerReturnValueIsDefinedButThereIsADefaultShouldlUseTheDefaultValue"></a>WhenNoUnsignedIntegerReturnValueIsDefinedButThereIsADefaultShouldlUseTheDefaultValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="WhenAUnsignedIntegerReturnValueIsDefinedAndAlsoThereIsADefaultShouldlIgnoreTheDefault"></a>WhenAUnsignedIntegerReturnValueIsDefinedAndAlsoThereIsADefaultShouldlIgnoreTheDefault</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="UnsignedIntegerReturnValueSetsDifferentValuesWhileParametersAreIgnored"></a>UnsignedIntegerReturnValueSetsDifferentValuesWhileParametersAreIgnored</td><td>Success</td><td></td><td>0.001</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="UnsignedIntegerReturnValueSetsDifferentValues"></a>UnsignedIntegerReturnValueSetsDifferentValues</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="UnsignedIntReturnValueCanBeRetrievedAsUnsignedLongInt"></a>UnsignedIntReturnValueCanBeRetrievedAsUnsignedLongInt</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="PositiveLongIntReturnValueCanBeRetrievedAsUnsignedLongInt"></a>PositiveLongIntReturnValueCanBeRetrievedAsUnsignedLongInt</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="PositiveIntReturnValueCanBeRetrievedAsUnsignedLongInt"></a>PositiveIntReturnValueCanBeRetrievedAsUnsignedLongInt</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="UnsignedIntReturnValueCanBeRetrievedAsLongInt"></a>UnsignedIntReturnValueCanBeRetrievedAsLongInt</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="IntReturnValueCanBeRetrievedAsLongInt"></a>IntReturnValueCanBeRetrievedAsLongInt</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="PositiveIntReturnValueCanBeRetrievedAsUnsignedInt"></a>PositiveIntReturnValueCanBeRetrievedAsUnsignedInt</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="UnsignedIntegerReturnValue"></a>UnsignedIntegerReturnValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="hasReturnValue"></a>hasReturnValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="removeComparatorsWorksHierachically"></a>removeComparatorsWorksHierachically</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="installComparatorsWorksHierarchical"></a>installComparatorsWorksHierarchical</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="installComparatorWorksHierarchicalOnBothExistingAndDynamicallyCreatedMockSupports"></a>installComparatorWorksHierarchicalOnBothExistingAndDynamicallyCreatedMockSupports</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="reporterIsInheritedInHierarchicalMocks"></a>reporterIsInheritedInHierarchicalMocks</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="checkExpectationsWorksHierarchicallyForLastCallNotFinished"></a>checkExpectationsWorksHierarchicallyForLastCallNotFinished</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="ignoreOtherCallsWorksHierarchicallyWhenDynamicallyCreated"></a>ignoreOtherCallsWorksHierarchicallyWhenDynamicallyCreated</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="ignoreOtherCallsWorksHierarchically"></a>ignoreOtherCallsWorksHierarchically</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="checkExpectationsWorksHierarchically"></a>checkExpectationsWorksHierarchically</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="ExpectedCallsLeftWorksHierarchically"></a>ExpectedCallsLeftWorksHierarchically</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="EnableDisableWorkHierarchicallyWhenSupportIsDynamicallyCreated"></a>EnableDisableWorkHierarchicallyWhenSupportIsDynamicallyCreated</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="EnableDisableWorkHierarchically"></a>EnableDisableWorkHierarchically</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="usingTwoMockSupportsByName"></a>usingTwoMockSupportsByName</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="getMockSupportScope"></a>getMockSupportScope</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="setDataObject"></a>setDataObject</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="setConstDataPointer"></a>setConstDataPointer</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="setDataPointer"></a>setDataPointer</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="setDataDouble"></a>setDataDouble</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="setDataString"></a>setDataString</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="setMultipleData"></a>setMultipleData</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="uninitializedData"></a>uninitializedData</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="dataCanBeChanged"></a>dataCanBeChanged</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="hasDataBeenSet"></a>hasDataBeenSet</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="setDataForIntegerValues"></a>setDataForIntegerValues</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="setDataForUnsignedIntegerValues"></a>setDataForUnsignedIntegerValues</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="disableEnable"></a>disableEnable</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="customObjectWithFunctionComparator"></a>customObjectWithFunctionComparator</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="outputParameterTraced"></a>outputParameterTraced</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="outputAndInputParameter"></a>outputAndInputParameter</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="twoOutputParametersOfSameNameInDifferentFunctionsSucceeds"></a>twoOutputParametersOfSameNameInDifferentFunctionsSucceeds</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="twoOutputParameterOfSameNameInDifferentFunctionCallsOfSameFunctionSucceeds"></a>twoOutputParameterOfSameNameInDifferentFunctionCallsOfSameFunctionSucceeds</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="outputAndIntParametersOfSameNameInDifferentFunctionCallsOfSameFunctionSucceeds"></a>outputAndIntParametersOfSameNameInDifferentFunctionCallsOfSameFunctionSucceeds</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="twoDifferentOutputParametersInSameFunctionCallSucceeds"></a>twoDifferentOutputParametersInSameFunctionCallSucceeds</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="twoInterleavedOutputParameters"></a>twoInterleavedOutputParameters</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="twoOutputParameters"></a>twoOutputParameters</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="outputParameterMissing"></a>outputParameterMissing</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="unexpectedOutputParameter"></a>unexpectedOutputParameter</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="noActualCallForOutputParameter"></a>noActualCallForOutputParameter</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="outputParameterSucceeds"></a>outputParameterSucceeds</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="customObjectParameterSucceeds"></a>customObjectParameterSucceeds</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="customObjectParameterFailsWhenNotHavingAComparisonRepository"></a>customObjectParameterFailsWhenNotHavingAComparisonRepository</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="threeExpectedAndActual"></a>threeExpectedAndActual</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="newCallStartsWhileNotAllParametersWerePassed"></a>newCallStartsWhileNotAllParametersWerePassed</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="ignoreOtherParametersMultipleCallsButOneDidntHappen"></a>ignoreOtherParametersMultipleCallsButOneDidntHappen</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="ignoreOtherParametersMultipleCalls"></a>ignoreOtherParametersMultipleCalls</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="ignoreOtherParametersButExpectedParameterDidntHappen"></a>ignoreOtherParametersButExpectedParameterDidntHappen</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="ignoreOtherParametersButStillPassAll"></a>ignoreOtherParametersButStillPassAll</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="ignoreOtherParameters"></a>ignoreOtherParameters</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="calledWithoutParameters"></a>calledWithoutParameters</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="twiceCalledWithSameParameters"></a>twiceCalledWithSameParameters</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectMultipleCallsWithMultipleDifferentParametersThatHappenOutOfOrder"></a>expectMultipleCallsWithMultipleDifferentParametersThatHappenOutOfOrder</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectMultipleCallsWithDifferentParametersThatHappenOutOfOrder"></a>expectMultipleCallsWithDifferentParametersThatHappenOutOfOrder</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectOneIntegerParameterAndFailsDueToTypes"></a>expectOneIntegerParameterAndFailsDueToTypes</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectOneIntegerParameterAndFailsDueToValue"></a>expectOneIntegerParameterAndFailsDueToValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectOneUnsignedIntegerParameterAndFailsDueToValue"></a>expectOneUnsignedIntegerParameterAndFailsDueToValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectOneIntegerParameterAndFailsDueToParameterName"></a>expectOneIntegerParameterAndFailsDueToParameterName</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectOneUnsignedIntegerParameterAndFailsDueToParameterName"></a>expectOneUnsignedIntegerParameterAndFailsDueToParameterName</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectOneStringParameterAndValueFails"></a>expectOneStringParameterAndValueFails</td><td>Success</td><td></td><td>0.001</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectOneConstPointerParameterAndValue"></a>expectOneConstPointerParameterAndValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectOnePointerParameterAndValue"></a>expectOnePointerParameterAndValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectOneStringParameterAndValue"></a>expectOneStringParameterAndValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectOneDoubleParameterAndValue"></a>expectOneDoubleParameterAndValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="unsignedLongAndLongWithSameBitRepresentationShouldnotBeTreatedAsEqual"></a>unsignedLongAndLongWithSameBitRepresentationShouldnotBeTreatedAsEqual</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="longAndUnsignedLongWithSameBitRepresentationShouldNotBeTreatedAsEqual"></a>longAndUnsignedLongWithSameBitRepresentationShouldNotBeTreatedAsEqual</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="mismatchedIntegerTypesLongAndUnsignedLongAreAllowed"></a>mismatchedIntegerTypesLongAndUnsignedLongAreAllowed</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="mismatchedIntegerTypesUnsignedAndUnsignedLongAreAllowed"></a>mismatchedIntegerTypesUnsignedAndUnsignedLongAreAllowed</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="mismatchedIntegerTypesUnsignedAndLongAreAllowed"></a>mismatchedIntegerTypesUnsignedAndLongAreAllowed</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="mismatchedIntegerTypesIntAndUnsignedLongAreAllowed"></a>mismatchedIntegerTypesIntAndUnsignedLongAreAllowed</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="mismatchedIntegerTypesIntAndUnsignedAreAllowed"></a>mismatchedIntegerTypesIntAndUnsignedAreAllowed</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="mismatchedIntegerTypesIntAndLongAreAllowed"></a>mismatchedIntegerTypesIntAndLongAreAllowed</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectOneIntegerParameterAndValue"></a>expectOneIntegerParameterAndValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectOneUnsignedIntegerParameterAndValue"></a>expectOneUnsignedIntegerParameterAndValue</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectOneCallHoweverMultipleHappened"></a>expectOneCallHoweverMultipleHappened</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="usingNCalls"></a>usingNCalls</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="strictOrderViolatedWithTwoMocks"></a>strictOrderViolatedWithTwoMocks</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="strictOrderNotViolatedWithTwoMocks"></a>strictOrderNotViolatedWithTwoMocks</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="strictOrderViolatedWithinAScope"></a>strictOrderViolatedWithinAScope</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="strictOrderViolated"></a>strictOrderViolated</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="someStrictOrderObserved"></a>someStrictOrderObserved</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="strictOrderObserved"></a>strictOrderObserved</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="expectMultipleCallsThatHappen"></a>expectMultipleCallsThatHappen</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="ignoreOtherStillFailsIfExpectedOneDidntHappen"></a>ignoreOtherStillFailsIfExpectedOneDidntHappen</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="ignoreOtherCallsDoesntIgnoreMultipleCallsOfTheSameFunction"></a>ignoreOtherCallsDoesntIgnoreMultipleCallsOfTheSameFunction</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="ignoreOtherCallsExceptForTheExpectedOne"></a>ignoreOtherCallsExceptForTheExpectedOne</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="unexpectedCallHappened"></a>unexpectedCallHappened</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="exceptACallInceasesExpectedCallsLeft"></a>exceptACallInceasesExpectedCallsLeft</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="exceptACallThatHappens"></a>exceptACallThatHappens</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="checkExpectationsClearsTheExpectations"></a>checkExpectationsClearsTheExpectations</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="checkExpectationsDoesntFail"></a>checkExpectationsDoesntFail</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="clear"></a>clear</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+</table>
+<div class="Properties">
+<a href="javascript:displayProperties('.MockSupportTest');">
+                    Properties &raquo;
+                </a>
+</div>
+</body>
+</html>
