@@ -36,8 +36,6 @@ $ brew install cpputest
 
 The download link for github is at the top of this page. You can either get the latest code or a specific release.
 
-You can find all the downloads [at the download page](https://github.com/cpputest/cpputest/downloads)
-
 Alternatively, you can clone the github repository, read-only:
 
 {% highlight bash %}
