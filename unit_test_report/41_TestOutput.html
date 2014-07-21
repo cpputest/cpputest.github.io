@@ -1,13 +1,13 @@
 <html xmlns:lxslt="http://xml.apache.org/xslt" xmlns:stringutils="xalan://org.apache.tools.ant.util.StringUtils">
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Unit Test Results: CodeMemoryReportFormatter</title>
+<title>Unit Test Results: TestOutput</title>
 <link rel="stylesheet" type="text/css" title="Style" href="stylesheet.css">
 <script type="text/javascript" language="JavaScript">
         var TestCases = new Array();
         var cur;
         
-    cur = TestCases['.CodeMemoryReportFormatter'] = new Array();
+    cur = TestCases['.TestOutput'] = new Array();
     </script><script type="text/javascript" language="JavaScript">
         function displayProperties (name) {
           var win = window.open('','JUnitSystemProperties','scrollbars=1,resizable=1');
@@ -46,13 +46,13 @@
 </tr>
 </table>
 <hr size="1">
-<h3>Class CodeMemoryReportFormatter</h3>
+<h3>Class TestOutput</h3>
 <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
 <tr valign="top">
 <th width="80%">Name</th><th>Tests</th><th>Errors</th><th>Failures</th><th nowrap>Time(s)</th><th nowrap>Time Stamp</th><th>Host</th>
 </tr>
 <tr valign="top" class="Pass">
-<td><a title="Display all tests" href="4_CodeMemoryReportFormatter.html">CodeMemoryReportFormatter</a></td><td><a title="Display all tests" href="4_CodeMemoryReportFormatter.html">16</a></td><td>0</td><td>0</td><td>0.000</td><td>2014-07-21T02:56:35</td><td>localhost</td>
+<td><a title="Display all tests" href="41_TestOutput.html">TestOutput</a></td><td><a title="Display all tests" href="41_TestOutput.html">20</a></td><td>0</td><td>0</td><td>0.001</td><td>2014-07-21T02:56:35</td><td>localhost</td>
 </tr>
 </table>
 <h2>Tests</h2>
@@ -61,56 +61,68 @@
 <th>Name</th><th>Status</th><th width="80%">Type</th><th nowrap>Time(s)</th>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="TestGroupGeneratesTestGroupCode"></a>TestGroupGeneratesTestGroupCode</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="printTestsEndedWithFailures"></a>printTestsEndedWithFailures</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testEndGeneratesTESTcode"></a>testEndGeneratesTESTcode</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="printTestsEnded"></a>printTestsEnded</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testStartGeneratesTESTcode"></a>testStartGeneratesTESTcode</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="PrintTestStarts"></a>PrintTestStarts</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="allocationUsingNewcOnTheSameLineDoesntGenerateVariableTwiceExceptWhenInANewTest"></a>allocationUsingNewcOnTheSameLineDoesntGenerateVariableTwiceExceptWhenInANewTest</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="PrintInVisualStudioFormat"></a>PrintInVisualStudioFormat</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="allocationUsingNewcOnTheSameLineDoesntGenerateTheSameVariableTwice"></a>allocationUsingNewcOnTheSameLineDoesntGenerateTheSameVariableTwice</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="PrintFailureWithFailInHelper"></a>PrintFailureWithFailInHelper</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="allocationUsingMallocOnTheSameLineDoesntGenerateTheSameVariableTwice"></a>allocationUsingMallocOnTheSameLineDoesntGenerateTheSameVariableTwice</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="PrintFailureWithFailInDifferentFile"></a>PrintFailureWithFailInDifferentFile</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="NewArrayAllocatorGeneratesDeleteArrayCode"></a>NewArrayAllocatorGeneratesDeleteArrayCode</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="PrintWithFailureInSameFile"></a>PrintWithFailureInSameFile</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="DeleteNullWorksFine"></a>DeleteNullWorksFine</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="PrintTestRunOnlyOne"></a>PrintTestRunOnlyOne</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="NewAllocatorGeneratesDeleteCode"></a>NewAllocatorGeneratesDeleteCode</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="PrintTestRun"></a>PrintTestRun</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="newArrayGeneratesNewCode"></a>newArrayGeneratesNewCode</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="printColorWithFailures"></a>printColorWithFailures</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="newArrayAllocatorGeneratesNewArrayCode"></a>newArrayAllocatorGeneratesNewArrayCode</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="printColorWithSuccess"></a>printColorWithSuccess</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="variableNamesShouldNotContainDotButUseUnderscore"></a>variableNamesShouldNotContainDotButUseUnderscore</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="PrintTestVerboseEnded"></a>PrintTestVerboseEnded</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="variableNamesShouldNotContainSlahses"></a>variableNamesShouldNotContainSlahses</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="PrintTestVerboseStarted"></a>PrintTestVerboseStarted</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="twoMallocAndTwoFree"></a>twoMallocAndTwoFree</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="SetProgressIndicator"></a>SetProgressIndicator</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="freeCreatesAnFreeCall"></a>freeCreatesAnFreeCall</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="PrintTestALot"></a>PrintTestALot</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="mallocCreatesAnMallocCall"></a>mallocCreatesAnMallocCall</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="PrintTestEnded"></a>PrintTestEnded</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="StreamOperators"></a>StreamOperators</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="PrintDouble"></a>PrintDouble</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="PrintLong"></a>PrintLong</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="PrintConstCharStar"></a>PrintConstCharStar</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 </table>
 <div class="Properties">
-<a href="javascript:displayProperties('.CodeMemoryReportFormatter');">
+<a href="javascript:displayProperties('.TestOutput');">
                     Properties &raquo;
                 </a>
 </div>
