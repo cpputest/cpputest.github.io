@@ -389,7 +389,7 @@ You can also use mock support directly to do this (instead of using the actual c
 
 {% highlight c++ %}
 int function () {
-    return mock().actualCall("function");
+    mock().actualCall("function");
     return mock().returnIntValueOrDefault(5);
 }
 {% endhighlight %}
