@@ -301,11 +301,11 @@ The mock function would look like:
 
 {% highlight c++ %}
 int function () {
-    return mock().actualCall("function").intReturnValue();
+    return mock().actualCall("function").returnIntValue();
 }
 {% endhighlight %}
 
-or we could separate intReturnValue from the actualCall (below it!) like:
+or we could separate returnIntValue from the actualCall (below it!) like:
 
 {% highlight c++ %}
 int function () {
@@ -353,12 +353,45 @@ mock().ignoreOtherCalls();
 
 This will check that one call of foo happens (and only one call!), but all other calls will be ignored (such as "bar").
 
-Sometimes, you don't want to just ignore calls, but instead disable the whole mocking framework for a while (too do *something*). This happens sometimes in initialization where you might want to do *something* without the mocking framework checking calls. You can do this by enabling/disabling such as:
+Sometimes, you don't want to just ignore calls, but instead disable the whole mocking framework for a while (to do *something*). This happens sometimes in initialization where you might want to do *something* without the mocking framework checking calls. You can do this by enabling/disabling such as:
 
 {% highlight c++ %}
 mock().disable();
 doSomethingThatWouldOtherwiseBlowUpTheMockingFramework();
 mock().enable();
+{% endhighlight %}
+
+When you are ignoring calls to mocked functions that have a return value there is a catch. You will probably get a runtime error on your test when you try to ignore it.
+
+As almost all things in life it is easier to explain this with an example, lets say you have this mock function:
+
+{% highlight c++ %}
+int function () {
+    return mock().actualCall("function").returnIntValue();
+}
+{% endhighlight %}
+
+If you try to ignore it or disable the framework, it will explode. Why ? The return value is not defined so there is no way to define the return value of the mocked function.
+
+To cases like these there is a series of return value functions that allows you to define a default return value, that will be returned when the mock function is ignored.
+
+The example above could be written as:
+
+{% highlight c++ %}
+int function () {
+    return mock().actualCall("function").returnIntValueOrDefault(5);
+}
+{% endhighlight %}
+
+If the function is ignored or the framework is disabled, a 5 will be returned, otherwise the expected return value will be returned (according to the expectations set on the test case).
+
+You can also use mock support directly to do this (instead of using the actual call object):
+
+{% highlight c++ %}
+int function () {
+    return mock().actualCall("function");
+    return mock().returnIntValueOrDefault(5);
+}
 {% endhighlight %}
 
 If you want to clear all the expectations, settings, and comparators, call clear:
