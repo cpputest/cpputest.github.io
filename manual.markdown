@@ -5,9 +5,10 @@ title: CppUTest Manual
 
 CppUTest is a C /C++ based unit xUnit test framework for unit testing and for test-driving your code. It is written in C++ but is used in C and C++ projects and frequently used in embedded systems.
 
-CppUTest has a couple design principles
+CppUTest's core design principles
 * Simple to use and small
 * Portable to old and new platforms
+* Build with Test-driven Development in mind
 
 ## Table of Content
 
@@ -71,7 +72,7 @@ To get the above to work, you'll need a Makefile or change your existing one. Th
 
 #### CppUTest path
 
-You'll need to define a CppUTest path either as system variable or in the Makefile, such as:
+If you have a system installed version (e.g. via apt-get) then you probably don't need to change the path. Otherwise you'll need to add CppUTest include directories to your Makefile. Usually this is done by definining a CppUTest path either as system variable or in the Makefile, such as:
 
 {% highlight make %}
     CPPUTEST_HOME = /Users/vodde/workspace/cpputest
@@ -108,16 +109,13 @@ You need to add CppUTest library to the linker flags, for example, like:
 
 <a id="test_macros"> </a>
 
-## Test Macros
-
+## Most commonly used Test Macros
 
 * TEST(group, name) - define a test
 * IGNORE_TEST(group, name) - turn off the execution of a test
 * TEST_GROUP(group) - Declare a test group to which certain tests belong.
   This will also create the link needed from another library.
 * TEST_GROUP_BASE(group, base) - Same as TEST_GROUP, just use a different base class than Utest
-* TEST_SETUP() - Declare a void setup method in a TEST_GROUP
-* TEST_TEARDOWN() - Declare a void setup method in a TEST_GROUP
 * IMPORT_TEST_GROUP(group) - Export the name of a test group so it can be linked in from a library (also see Advanced Stuff)
 
 ### Set up and tear down support
@@ -144,9 +142,9 @@ The failure of one of these macros causes the current test to immediately exit:
 
 <a id="setup_teardown"> </a>
 
-*Warning 1:*
+*CHECK_EQUALS Warning:*
 
-CHECK_EQUAL(expected, actual) can produce misleading error reports when used with mocks if expected and actual don't match. This happens if the mock function expects to be called exactly once, since the macro needs to evaluate the actual expression twice in case of error. The problem does not occur with type specific checks (e.g. LONGS_EQUAL()), so it is recommended to use them if possible. Instead of: 
+CHECK_EQUAL(expected, actual) can produce misleading error reports as it will evaluate expected and actual more than ones. THis especially leads to confusions when used with mocks. This happens if the mock function expects to be called exactly once, since the macro needs to evaluate the actual expression more than once. The problem does not occur with type specific checks (e.g. LONGS_EQUAL()), so it is recommended to use them if possible. Instead of:
 
 {% highlight c++ %}
 CHECK_EQUAL(10, mock_returning_11())
@@ -212,7 +210,7 @@ The test execution of this will *likely* (no guarantee of order in CppUTest) be:
 * teardown FooTestGroup
 * setup FooTestGroup
 * Foo
-* teardown FooTestGroup 
+* teardown FooTestGroup
 
 <a id="command_line"> </a>
 
@@ -274,12 +272,12 @@ You can do the same by turning it off on a test by test basis, by adding this to
 {% highlight c++ %}
 
 void setup()
-{   
+{
     MemoryLeakWarningPlugin::turnOffNewDeleteOverloads();
-}   
+}
 
 void teardown()
-{   
+{
     MemoryLeakWarningPlugin::turnOnNewDeleteOverloads();
 }
 
@@ -352,7 +350,7 @@ int main(int ac, char** av)
 }
 
 TEST_GROUP(HelloWorld)
-{ 
+{
    static int output_method(const char* output, ...)
    {
       va_list arguments;
@@ -363,7 +361,7 @@ TEST_GROUP(HelloWorld)
    }
    void setup()
    {
-      //overwrite the production function pointer witha an output method that captures 
+      //overwrite the production function pointer witha an output method that captures
       //output in a buffer.
       UT_PTR_SET(helloWorldApiInstance.printHelloWorld_output, &output_method);
    }
@@ -372,10 +370,10 @@ TEST_GROUP(HelloWorld)
    }
 };
 
-TEST(HelloWorld, PrintOk) 
+TEST(HelloWorld, PrintOk)
 {
    printHelloWorld();
-   STRCMP_EQUAL("Hello World!\n", buffer);	
+   STRCMP_EQUAL("Hello World!\n", buffer)
 }
 
 //Hello.h
@@ -410,7 +408,7 @@ void printHelloWorld()
 
 ## Scripts
 
-There are some scripts that are helpful in creating your initial h, source, and 
+There are some scripts that are helpful in creating your initial h, source, and
 Test files.  These save a lot of typing.  See scripts/README.TXT from the CppUTest distribution.
 
 <a id="advanced"> </a>
@@ -422,7 +420,7 @@ Create the function
 {% highlight c++ %}
         SimpleString StringFrom (const yourType&)
 {% endhighlight %}
-        
+
 The Extensions directory has a few of these.
 
 ### Building default checks with TestPlugin
@@ -474,13 +472,13 @@ TEST(TestUsingGMock, UsingMyMock)
 {
 	NiceMock<MyMock> mock;
 	EXPECT_CALL(mock, methodName()).Times(2).WillRepeatedly(Return(1));
-	
+
 	productionCodeUsing(mock);
 }
 
 {% endhighlight %}
 
-The above will probably leak to the memory leak detector complaining about memory leaks (in google mock). These aren't really memory leaks, but they are static data that gtest (unfortunately) allocates on the first run. There are a couple of ways to get around that. First, you turn of the memory leak detector (see [Memory Leak Detection](#memory_leak_detection)). A better solutions is to use the GTestConvertor. 
+The above will probably leak to the memory leak detector complaining about memory leaks (in google mock). These aren't really memory leaks, but they are static data that gtest (unfortunately) allocates on the first run. There are a couple of ways to get around that. First, you turn of the memory leak detector (see [Memory Leak Detection](#memory_leak_detection)). A better solutions is to use the GTestConvertor.
 
 You can do that by adding the following code to your main:
 
@@ -504,7 +502,7 @@ The most important line to add is the GTestConvertor. Make sure you define the C
 
 People feel wonderfully religious about unit testing tools. Of course, we feel strongly that CppUTest beats other tools when you actually test-drive your software. But unfortunately, people still use tools like GoogleTest (which is actually not as bad as e.g. CppUnit). It is unlikely that we're going to convince people to use CppUTest instead, so therefore we've written some integration code where you can actually link google test and CppUTest tests together in one binary (with the CppUTest test runner). THis also gives you some additional benefits:
 
-* You get memory leak detection over your google tests... 
+* You get memory leak detection over your google tests...
 * You don't get the verbose gtest output
 * You can use both CppUMock and GMock in one project
 
@@ -546,9 +544,4 @@ int main(int argc, char** argv)
 {% endhighlight %}
 
 (of course, you'll need make sure you link also gtest and also add it to the include path.)
-
-
-
-
-
 
