@@ -57,7 +57,7 @@ After you cloned CppUTest, you can build it with your favorite build tool (CMake
 Building with autoconf requires you to (this requires you to have installed GNU autotools, apt-get install automake autoconf):
 
 {% highlight bash %}
-$ autoreconf
+$ autoreconf -i
 $ mkdir build_dir; cd build_dir
 $ configure ..
 $ make
