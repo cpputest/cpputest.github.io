@@ -7,10 +7,11 @@ title: CppUTest
 
 CppUTest is a C /C++ based unit xUnit test framework for unit testing and for test-driving your code. It is written in C++ but is used in C and C++ projects and frequently used in embedded systems but it works for any C/C++ project.
 
-CppUTest is based on the following design principles
+CppUTest's core design principles are:
 
 * Simple in design and simple in use.
 * Portable to old and new platforms.
+* Build with Test-driven Development in mind
 
 ## Where to get CppUTest
 
@@ -34,7 +35,10 @@ $ brew install cpputest
 
 ### From source
 
-The download link for github is at the top of this page. You can either get the latest code or a specific release.
+You can download the latest 'automatically released' version:
+
+* [Latest version passing the build](https://github.com/cpputest/cpputest.github.io/blob/master/releases/cpputest-3.7dev.tar.gz?raw=true)
+This version is automatically packages after a build has passed.
 
 Alternatively, you can clone the github repository, read-only:
 
@@ -47,6 +51,27 @@ Or clone it via ssh (which requires a github account)
 {% highlight bash %}
 $ git clone git@github.com:cpputest/cpputest.git
 {% endhighlight %}
+
+After you cloned CppUTest, you can build it with your favorite build tool (CMake or autoconf).
+
+Building with autoconf requires you to (this requires you to have installed GNU autotools, apt-get install automake autoconf):
+
+{% highlight bash %}
+$ autoreconf -i
+$ mkdir build_dir; cd build_dir
+$ configure ..
+$ make
+{% endhighlight %}
+
+Or you can use CMake if that is the build tool you fancy (this requires you have install CMake, apt-get install cmake):
+
+{% highlight bash %}
+$ mkdir build_dir; cd build_dir
+$ cmake ..
+$ make
+{% endhighlight %}
+
+For Windows users, the above work with cygwin. There are also several MS VC++ projects available.
 
 ## Where to find more information
 
