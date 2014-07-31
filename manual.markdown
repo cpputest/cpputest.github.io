@@ -438,7 +438,7 @@ The Extensions directory has a few of these.
 In larger projects, it is often useful if you can link the tests in "libraries of tests" and then link them to the library of a component or link them all together to be able to run all the unit tests. Putting the tests in a library however causes an interesting problem because the lack of reference to the tests (due to the auto-registration of tests) causes the linker to discard the tests and it won't run any of them. There are two different work-arounds for this:
 
 * You can use the IMPORT_TEST_GROUP macro to create a reference. This is typically done in the main.cpp or the main.h. You'll need to do this for every single TEST_GROUP (and the tests groups shouldn't be distributed over multiple files)
-* When you use gnu linker (on linux, but not MacOSX) then you can use an additional linker option that will make sure the whole library is linked. You do this by adding the library to be linked between the "-Wl,-while-archive" and the -Wl,-no-whole-archive" options. For example:
+* When you use gnu linker (on linux, but not MacOSX) then you can use an additional linker option that will make sure the whole library is linked. You do this by adding the library to be linked between the "-Wl,-whole-archive" and the -Wl,-no-whole-archive" options. For example:
 
 {% highlight make %}
    gcc -o test_executable production_library.a -Wl,-whole-archive test_library.a -Wl,-no-whole-archive $(OTHER_LIBRARIES)
