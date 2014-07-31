@@ -447,9 +447,11 @@ In larger projects, it is often useful if you can link the tests in "libraries o
 <a id="c_interface"> </a>
 ## C Interface
 
-Sometimes a C header will not compile under C++. For such cases, there are macros that allows to specify test cases in a .c source, without involving C++ at all. There is also a set of macro wrappers that pulls these test cases into a .cpp source for CppUTest to work with. You will find the macro definitions in TestHarness_c.h.
+Sometimes, a C header will not compile under C++. For such cases, there are macros that allow you to specify test cases in a .c source, without involving C++ at all. There are also macro wrappers that pull these test cases into a .cpp source for CppUTest to work with. You will find all C macro definitions in TestHarness_c.h.
 
-Here is a small example of how this is done. First the interface of the function we want to test, PureCTests.h:
+Here is a small example of how this is done. 
+
+First, the header of the function we want to test, PureCTests.h:
 
 {% highlight c %}
 /** Legal C code that would not compile under C++ */
