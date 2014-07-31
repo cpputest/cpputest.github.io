@@ -445,6 +445,7 @@ In larger projects, it is often useful if you can link the tests in "libraries o
 {% endhighlight %}
 
 <a id="c_interface"> </a>
+
 ## C Interface
 
 Sometimes, a C header will not compile under C++. For such cases, there are macros that allow you to specify test cases in a .c source, without involving C++ at all. There are also macro wrappers that pull these test cases into a .cpp source for CppUTest to work with. You will find all C macro definitions in TestHarness_c.h.
@@ -538,6 +539,7 @@ int main(int ac, char** av)
 You can leave out TEST_GROUP_C_SETUP() / TEST_GROUP_C_TEARDOWN() and TEST_GROUP_C_SETUP_WRAPPER() / TEST_GROUP_C_TEARDOWN_WRAPPER(), if you don't need them.
 
 <a id="gmock"> </a>
+
 ## Using Google Mock
 
 You can use Google Mock directly in CppUTest. In order to do this, you'll need to build with the real google mock. You do that like this:
