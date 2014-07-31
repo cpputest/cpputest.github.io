@@ -22,6 +22,7 @@ CppUTest's core design principles
 * [Test Plugins](#test_plugins)
 * [Scripts](#scripts)
 * [Advanced Stuff](#advanced)
+* [C Interface](#c_interface)
 * [Using Google Mock](#gmock)
 * [Running Google Tests in CppUTest](#gtest)
 
@@ -442,6 +443,97 @@ In larger projects, it is often useful if you can link the tests in "libraries o
 {% highlight make %}
    gcc -o test_executable production_library.a -Wl,-whole-archive test_library.a -Wl,-no-whole-archive $(OTHER_LIBRARIES)
 {% endhighlight %}
+
+<a id="c_interface"> </a>
+## C Interface
+
+Sometimes a C header will not compile under C++. For such cases, there are macros that allows to specify test cases in a .c source, without involving C++ at all. There is also a set of macro wrappers that pulls these test cases into a .cpp source for CppUTest to work with. You will find the macro definitions in TestHarness_c.h.
+
+Here is a small example of how this is done. First the interface of the function we want to test, PureCTests.h:
+
+{% highlight c %}
+/** Legal C code that would not compile under C++ */
+int private (int new);
+{% endhighlight %}
+
+Next, the C file that defines our tests, PureCTests.c:
+
+{% highlight c %}
+#include "PureCTests_c.h" /** the offending C header */
+#include "CppUTest/TestHarness_c.h"
+#include "CppUtestExt/MockSupport_c.h"
+
+/** Mock for function internal() */
+int internal(int new) 
+{
+    mock_c()->actualCall("internal")
+            ->withIntParameters("new", new);
+    return mock_c()->returnValue().value.intValue;
+}
+
+/** Implementation of function to test */
+int private (int new)
+{
+    return internal(new);
+}
+
+/** Setup and Teardown per test group (optional) */
+TEST_GROUP_C_SETUP(mygroup)
+{
+}
+TEST_GROUP_C_TEARDOWN(mygroup)
+{
+    mock_c()->checkExpectations();
+    mock_c()->clear();
+}
+
+/** The actual tests for this test group */
+TEST_C(mygroup, test_success)
+{
+    mock_c()->expectOneCall("internal")->withIntParameters("new", 5)->andReturnIntValue(5);
+    int actual = private(5);
+    CHECK_EQUAL_C_INT(5, actual);
+}
+TEST_C(mygroup, test_mockfailure)
+{
+    mock_c()->expectOneCall("internal")->withIntParameters("new", 2)->andReturnIntValue(5);
+    int actual = private(5);
+    CHECK_EQUAL_C_INT(5, actual);
+}
+TEST_C(mygroup, test_equalfailure)
+{
+    mock_c()->expectOneCall("internal")->withIntParameters("new", 5)->andReturnIntValue(2);
+    int actual = private(5);
+    CHECK_EQUAL_C_INT(5, actual);
+}
+{% endhighlight %}
+
+Finally, the .cpp file that wraps it all up for CppUTest, PureCTests.cpp:
+
+{% highlight c++ %}
+#include "CppUTest/CommandLineTestRunner.h"
+#include "CppUTest/TestHarness_c.h"
+
+/** For each C test group */
+TEST_GROUP_C_WRAPPER(mygroup)
+{
+    TEST_GROUP_C_SETUP_WRAPPER(mygroup); /** optional */
+    TEST_GROUP_C_TEARDOWN_WRAPPER(mygroup); /** optional */
+};
+
+/** For each C test */
+TEST_C_WRAPPER(mygroup, test_success);
+TEST_C_WRAPPER(mygroup, test_mockfailure);
+TEST_C_WRAPPER(mygroup, test_equalfailure);
+
+/** Test main as usual */
+int main(int ac, char** av)
+{
+	return RUN_ALL_TESTS(ac, av);
+}
+{% endhighlight %}
+
+You can leave out TEST_GROUP_C_SETUP() / TEST_GROUP_C_TEARDOWN() and TEST_GROUP_C_SETUP_WRAPPER() / TEST_GROUP_C_TEARDOWN_WRAPPER(), if you don't need them.
 
 <a id="gmock"> </a>
 ## Using Google Mock
