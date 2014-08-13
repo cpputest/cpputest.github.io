@@ -532,7 +532,7 @@ TEST_C_WRAPPER(mygroup, test_equalfailure);
 /** Test main as usual */
 int main(int ac, char** av)
 {
-	return RUN_ALL_TESTS(ac, av);
+    return RUN_ALL_TESTS(ac, av);
 }
 {% endhighlight %}
 
