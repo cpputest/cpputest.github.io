@@ -54,7 +54,7 @@ $ git clone git@github.com:cpputest/cpputest.git
 
 After you cloned CppUTest, you can build it with your favorite build tool (CMake or autoconf).
 
-Building with autoconf requires you to (this requires you to have installed GNU autotools, apt-get install automake autoconf):
+Building with autoconf requires you to (this requires you to have installed GNU autotools, apt-get/brew install automake autoconf libtool):
 
 {% highlight bash %}
 $ autoreconf -i
