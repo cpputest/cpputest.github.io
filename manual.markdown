@@ -222,9 +222,14 @@ The test execution of this will *likely* (no guarantee of order in CppUTest) be:
 * *-c* colorize output, print green if OK, or red if failed
 * *-r#* repeat the tests some number (#) of times, or two times if # is not specified. This is handy if you are experiencing memory leaks. A second run that has no leaks indicates that someone is allocating statics and not releasing them.
 * *-g* group only run test whose group contains the substring group
+* *-sg* group only run test whose group exactly matches the string group
 * *-n* name only run test whose name contains the substring name
+* *-sn* name only run test whose name exactly matches the string name
+* *"TEST(group, name)"* only run test whose group and name matches the strings group and name
 * *-ojunit* output to JUnit ant plugin style xml files (for CI systems)
 * *-k* package name, Add a package name in JUnit output (for classification in CI systems)
+
+Note that you cannot specify more than one -s|sg parameter and one -s|sn parameter. Since "TEST(group, name)" is equivalent to -sggroup -sgname, you should only use one or the other.
 
 <a id="memory_leak_detection"> </a>
 
