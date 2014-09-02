@@ -225,11 +225,17 @@ The test execution of this will *likely* (no guarantee of order in CppUTest) be:
 * *-sg* group only run test whose group exactly matches the string group
 * *-n* name only run test whose name contains the substring name
 * *-sn* name only run test whose name exactly matches the string name
-* *"TEST(group, name)"* only run test whose group and name matches the strings group and name
+* *"TEST(group, name)"* only run test whose group and name matches the strings group and name. This can be used to copy-paste output from the -v option on the command line.
 * *-ojunit* output to JUnit ant plugin style xml files (for CI systems)
 * *-k* package name, Add a package name in JUnit output (for classification in CI systems)
 
-Note that you cannot specify more than one -s&#124;sg parameter and one -s&#124;sn parameter. Since "TEST(group, name)" is equivalent to -sggroup -sgname, you should only use one or the other.
+You can specify multiple -s&#124;sg, -s&#124;sn and "TEST(group, name)" parameters: 
+
+Specifying only test groups with multiple -s&#124;sg parameters will run all tests in those groups, since no test name matches all test names.
+
+Specifying only test names with multiple -s&#124;sn parameters will run all tests whose names match, since no test group matches all test groups.
+
+Mixing multiple -s&#124;sg and -s&#124;sn parameters (or using the "TEST(group, name)" will only run tests whose group matches as well as their name.
 
 <a id="memory_leak_detection"> </a>
 
