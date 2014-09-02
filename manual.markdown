@@ -229,7 +229,7 @@ The test execution of this will *likely* (no guarantee of order in CppUTest) be:
 * *-ojunit* output to JUnit ant plugin style xml files (for CI systems)
 * *-k* package name, Add a package name in JUnit output (for classification in CI systems)
 
-Note that you cannot specify more than one -s|sg parameter and one -s|sn parameter. Since "TEST(group, name)" is equivalent to -sggroup -sgname, you should only use one or the other.
+Note that you cannot specify more than one -s&#124;sg parameter and one -s&#124;sn parameter. Since "TEST(group, name)" is equivalent to -sggroup -sgname, you should only use one or the other.
 
 <a id="memory_leak_detection"> </a>
 
