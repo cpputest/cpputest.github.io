@@ -235,7 +235,7 @@ Specifying only test groups with multiple -s&#124;sg parameters will run all tes
 
 Specifying only test names with multiple -s&#124;sn parameters will run all tests whose names match, since no test group matches all test groups.
 
-Mixing multiple -s&#124;sg and -s&#124;sn parameters (or using the "TEST(group, name)" will only run tests whose group matches as well as their name.
+Mixing multiple -s&#124;sg and -s&#124;sn parameters (or using "TEST(group, name)" will only run tests whose groups match as well as their names.
 
 <a id="memory_leak_detection"> </a>
 
