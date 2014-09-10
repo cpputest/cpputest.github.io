@@ -56,20 +56,20 @@ After you cloned CppUTest, you can build it with your favorite build tool (CMake
 
 Building with autoconf requires you to (this requires you to have installed GNU autotools, apt-get/brew install automake autoconf libtool):
 
-{% highlight bash %}
-$ autoreconf -i
-$ mkdir build_dir; cd build_dir
-$ configure ..
+```bash
+$ cd cpputest_build
+$ autoreconf .. -i
+$ ../configure
 $ make
-{% endhighlight %}
+```
 
 Or you can use CMake if that is the build tool you fancy (this requires you have install CMake, apt-get install cmake):
 
-{% highlight bash %}
-$ mkdir build_dir; cd build_dir
+```bash
+$ cd cpputest_build
 $ cmake ..
 $ make
-{% endhighlight %}
+```
 
 For Windows users, the above work with cygwin. There are also several MS VC++ projects available.
 
