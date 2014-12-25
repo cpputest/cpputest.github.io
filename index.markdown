@@ -21,17 +21,17 @@ CppUTest's core design principles are:
 
 There is an Debian and Ubuntu package available for CppUTest. This is by far the easiest way to install it, via:
 
-```bash
+{% highlight bash %}
 $ apt-get install cpputest
-```
+{% endhighlight %}
 
 *MacOSX*
 
 For Mac, a Homebrew package is available too. You can install via:
 
-```bash
+{% highlight bash %}
 $ brew install cpputest
-```
+{% endhighlight %}
 
 ### From source
 
@@ -42,34 +42,34 @@ This version is automatically packages after a build has passed.
 
 Alternatively, you can clone the github repository, read-only:
 
-```bash
+{% highlight bash %}
 $ git clone git://github.com/cpputest/cpputest.git
-```
+{% endhighlight %}
 
 Or clone it via ssh (which requires a github account)
 
-```bash
+{% highlight bash %}
 $ git clone git@github.com:cpputest/cpputest.git
-```
+{% endhighlight %}
 
 After you cloned CppUTest, you can build it with your favorite build tool (CMake or autoconf).
 
 Building with autoconf requires you to (this requires you to have installed GNU autotools, apt-get/brew install automake autoconf libtool):
 
-```bash
+{% highlight bash %}
 $ cd cpputest_build
 $ autoreconf .. -i
 $ ../configure
 $ make
-```
+{% endhighlight %}
 
 Or you can use CMake if that is the build tool you fancy (this requires you have install CMake, apt-get install cmake):
 
-```bash
+{% highlight bash %}
 $ cd cpputest_build
 $ cmake ..
 $ make
-```
+{% endhighlight %}
 
 For Windows users, the above work with cygwin. There are also several MS VC++ projects available.
 
@@ -84,7 +84,7 @@ For Windows users, the above work with cygwin. There are also several MS VC++ pr
 
 To write your first test, all you need is a new cpp file with a TEST_GROUP and a TEST, like:
 
-```c++
+{% highlight c++ %}
 TEST_GROUP(FirstTestGroup)
 {
 };
@@ -93,37 +93,37 @@ TEST(FirstTestGroup, FirstTest)
 {
    FAIL("Fail me!");
 }
-```
+{% endhighlight %}
 
 This test will fail.
 
 You can add new tests to the test group by just writing more tests in the file, like this:
 
-```c++
+{% highlight c++ %}
 TEST(FirstTestGroup, SecondTest)
 {
    STRCMP_EQUAL("hello", "world");
    LONGS_EQUAL(1, 2);
    CHECK(false);
 }
-```
+{% endhighlight %}
 
 You do need to create a main where you run all the unit tests. Such a main will look like this:
 
-```c++
+{% highlight c++ %}
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
 }
-```
+{% endhighlight %}
 
 For more information, We'd recommend to [read the manual](http://www.cpputest.org) or, even better, check some [existing tests](https://github.com/cpputest/cpputest/tree/master/tests) such as [SimpleStringTest](https://github.com/cpputest/cpputest/blob/master/tests/SimpleStringTest.cpp) or (a bit more complicated) [MemoryLeakDetectorTest](https://github.com/cpputest/cpputest/blob/master/tests/MemoryLeakDetectorTest.cpp) or the [mocking tests](https://github.com/cpputest/cpputest/blob/master/tests/CppUTestExt/TestMockSupport.cpp) or just check out the [Cheat Sheet](https://github.com/cpputest/cpputest/blob/master/tests/CheatSheetTest.cpp)
 
 ## Related projects
 
 For Eclipse users, also check:
-* [CppUTest Eclipse Test Runner](https://github.com/tcmak/CppUTestEclipseJunoTestRunner) This will allow you to run your tests JUnit style with red and green bars, and rerun arbitrary selections of tests.  
-Prerequisites:  
+* [CppUTest Eclipse Test Runner](https://github.com/tcmak/CppUTestEclipseJunoTestRunner) This will allow you to run your tests JUnit style with red and green bars, and rerun arbitrary selections of tests.
+Prerequisites:
   - CppUTest off master
   - Eclipse Juno, Kepler, or later
   - Eclipse C/C++ Unit Plugin (if not already present in your version of Eclipse; install directly from Eclipse Help -> Install New Software...).
