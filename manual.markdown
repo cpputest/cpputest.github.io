@@ -34,6 +34,8 @@ CppUTest's core design principles
 
 To write your first test, all you need is a new cpp file with a TEST_GROUP and a TEST, like:
 {% highlight c++ %}
+#include "CppUTest/TestHarness.h"
+
 TEST_GROUP(FirstTestGroup)
 {
 };
@@ -60,6 +62,8 @@ One of the key design goals in CppUTest is to make it *very easy* to add and rem
 Of course, in order to get it to run, you'll need to create a main. Most of the mains in CppUTest are very similar. They typically are in an AllTests.cpp file and look like this:
 
 {% highlight c++ %}
+#include "CppUTest/CommandLineTestRunner.h"
+
 int main(int ac, char** av)
 {
     return CommandLineTestRunner::RunAllTests(ac, av);
