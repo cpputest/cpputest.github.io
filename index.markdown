@@ -85,7 +85,7 @@ For Windows users, the above work with cygwin. There are also several MS VC++ pr
 
 ## Where to find more information
 
-* If you have any question, check out the [Google Groups](https://groups.google.com/forum/?fromgroups#!forum/cpputest)
+* If you have any questions, check out the [Google Groups](https://groups.google.com/forum/?fromgroups#!forum/cpputest)
 * The source is at the [main github page](https://github.com/cpputest/cpputest)
 * You can report bugs or features at [the issues page](https://github.com/cpputest/cpputest/issues)
 * You can follow [CppUTest on twitter](https://twitter.com/CppUTest)
@@ -127,7 +127,7 @@ int main(int ac, char** av)
 }
 {% endhighlight %}
 
-For more information, We'd recommend to [read the manual](http://www.cpputest.org) or, even better, check some [existing tests](https://github.com/cpputest/cpputest/tree/master/tests) such as [SimpleStringTest](https://github.com/cpputest/cpputest/blob/master/tests/SimpleStringTest.cpp) or (a bit more complicated) [MemoryLeakDetectorTest](https://github.com/cpputest/cpputest/blob/master/tests/MemoryLeakDetectorTest.cpp) or the [mocking tests](https://github.com/cpputest/cpputest/blob/master/tests/CppUTestExt/TestMockSupport.cpp) or just check out the [Cheat Sheet](https://github.com/cpputest/cpputest/blob/master/tests/CheatSheetTest.cpp)
+For more information, We'd recommend [reading the manual](http://www.cpputest.org) or, even better, check some [existing tests](https://github.com/cpputest/cpputest/tree/master/tests) such as [SimpleStringTest](https://github.com/cpputest/cpputest/blob/master/tests/SimpleStringTest.cpp) or (a bit more complicated) [MemoryLeakDetectorTest](https://github.com/cpputest/cpputest/blob/master/tests/MemoryLeakDetectorTest.cpp) or the [mocking tests](https://github.com/cpputest/cpputest/blob/master/tests/CppUTestExt/TestMockSupport.cpp) or just check out the [Cheat Sheet](https://github.com/cpputest/cpputest/blob/master/tests/CheatSheetTest.cpp)
 
 ## Related projects
 
@@ -141,4 +141,4 @@ Prerequisites:
 
 ## Authors and Contributors
 
-CppUTest has had many contributions from its users. We can't remember all, but we appreciate it a lot!. Much of the original code was written by Michael Feathers (based on CppUnit Lite). The current main maintainers are [@jwgrenning](https://github.com/jwgrenning) and [@basvodde](https://github.com/basvodde)
+CppUTest has had many contributions from its users. We can't remember all, but we appreciate it a lot! Much of the original code was written by Michael Feathers (based on CppUnit Lite). The current main maintainers are [@jwgrenning](https://github.com/jwgrenning) and [@basvodde](https://github.com/basvodde)

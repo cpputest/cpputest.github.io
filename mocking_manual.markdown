@@ -3,7 +3,7 @@ layout: default
 title: CppUTest Mocking Manual
 ---
 
-CppUTest has support for building mocks. This document described the mocking support. A couple of design goals for the mocking support were:
+CppUTest has support for building mocks. This document describes the mocking support. A couple of design goals for the mocking support were:
 
 
 * Same design goals as CppuTest -- limited C++ set to make it well suitable for embedded soft.
@@ -67,7 +67,7 @@ The TEST(MockDocumentation, SimpleScenario) contains the recording of the expect
 mock().expectOneCall("productionCode");
 {% endhighlight %}
 
-The call to mock() return the global MockSupport (more about that later) on which we can record our expectations. In this example, we'll call expectOneCall("productionCode") which... records an expectation for *one* call to a function called productionCode.
+The call to mock() returns the global MockSupport (more about that later) on which we can record our expectations. In this example, we'll call expectOneCall("productionCode") which... records an expectation for *one* call to a function called productionCode.
 
 The productionCode call is to show a call to whatever your real code is. The test ends with checking whether the expectations have been met. This is done with the:
 
@@ -88,7 +88,7 @@ void productionCode()
 
 where we use MockSupport by calling mock() and then record the actual call to the productionCode function.
 
-This scenario is quite common when using linker stubbing of e.g. a 3rd partly library.
+This scenario is quite common when using linker stubbing of e.g. a 3rd party library.
 
 If the call to productionCode wouldn't happen, then the test would fail with the following error message:
 
@@ -155,7 +155,7 @@ If the call to a wrong object happens, it would give the following error message
 
 ### Parameters
 
-Of course, just checked whether a function is called is not particularly useful when we cannot check the parameters. Recording parameters on a function is done like this:
+Of course, just checking whether a function is called is not particularly useful when we cannot check the parameters. Recording parameters on a function is done like this:
 
 {% highlight c++ %}
 mock().expectOneCall("function").onObject(object).withParameter("p1", 2).withParameter("p2", "hah");
@@ -219,7 +219,7 @@ To remove the comparators, all you needs to do is call removeAllComparators, lik
 mock().removeAllComparators();
 {% endhighlight %}
 
-Comparators sometimes lead to surprised, so a couple of warnings on its usage:
+Comparators sometimes lead to surprises, so a couple of warnings on its usage:
 
 *Warning 1:*
 
@@ -231,7 +231,7 @@ Comparators are *not* copied, instead it uses the exact instance as passed to th
 
 * Pay extra attention to scope when using the MockPlugin
 
-When using the MockPlugin (recommended), then its best to install the comparators via the MockPlugin or put them in global space. The checkExpectations will be called *after* teardown and if your comparator was destroyed in the teardown then this will cause a crash.
+When using the MockPlugin (recommended), then it's best to install the comparators via the MockPlugin or put them in global space. The checkExpectations will be called *after* teardown and if your comparator was destroyed in the teardown then this will cause a crash.
 
 <a id="output_parameters"> </a>
 
@@ -285,7 +285,7 @@ mock().expectOneCall("Foo").withOutputParameterReturning("bar", &doubleOutputVal
 
 *Warning 2:*
 
-* When an char, int, etc. array is passed to withOutputParameter, you must use the generic withOutputParameterReturning and provide the actual size of the array or only one element will be copied.
+* When a char, int, etc. array is passed to withOutputParameter, you must use the generic withOutputParameterReturning and provide the actual size of the array or only one element will be copied.
 
 <a id="return_values"> </a>
 
@@ -336,7 +336,7 @@ int value = mock().getData("importantValue").getIntValue();
 pobject = (ClassFromProductionCode*) mock().getData("importantObject").getObjectPointer();
 {% endhighlight %}
 
-Like return values. Setting data will not ever make a test fail but it provides support in building mock objects.
+Like return values, setting data will not ever make a test fail but it provides support in building mock objects.
 
 <a id="other_mock_support"> </a>
 
@@ -344,7 +344,7 @@ Like return values. Setting data will not ever make a test fail but it provides 
 
 MockSupport offers a couple of other useful functions, which will be covered in this section.
 
-Frequently, you only want to check a couple of calls in your test and ignore all the other calls. If you add expectOneCall for each of these calls, you're tests might become too large (though, it might be a smell that your test is indeed too large). One way to prevent this is the ignoreOtherCalls, like:
+Frequently, you only want to check a couple of calls in your test and ignore all the other calls. If you add expectOneCall for each of these calls, your tests might become too large (though, it might be a smell that your test is indeed too large). One way to prevent this is the ignoreOtherCalls, like:
 
 {% highlight c++ %}
 mock().expectOneCall("foo");
@@ -373,7 +373,7 @@ int function () {
 
 If you try to ignore it or disable the framework, it will explode. Why ? The return value is not defined so there is no way to define the return value of the mocked function.
 
-To cases like these there is a series of return value functions that allows you to define a default return value, that will be returned when the mock function is ignored.
+To cases like these there is a series of return value functions that allows you to define a default return value that will be returned when the mock function is ignored.
 
 The example above could be written as:
 
