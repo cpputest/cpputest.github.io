@@ -63,7 +63,17 @@ $ ../configure
 $ make
 {% endhighlight %}
 
-Or you can use CMake if that is the build tool you fancy (this requires you have install CMake, apt-get install cmake):
+## How to create a coverage report
+
+You can use autoconf to create a coverage report for CppUTests own tests. If you have lcov installed, a browsable html report will be generated as well. After the steps outlined in the previous paragraph, do the following:
+
+{% highlight bash %}
+$ make check_coverage
+{% endhighlight %}
+
+This will generate a file called gcov_report.txt with the coverage report in plain text format. It will also generate an HTML file called gcov_report.txt.html. If you have lcov installed, you will be able to browse the lcov report by opening ./cpputest_build/test_coverage/index.html . The lcov report is by far the easiest way to inspect CppUTest's own test coverage.
+
+Alternatively, you can use CMake if that is the build tool you fancy (this requires you have install CMake, apt-get install cmake):
 
 {% highlight bash %}
 $ cd cpputest_build
