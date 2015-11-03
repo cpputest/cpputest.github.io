@@ -34,6 +34,8 @@ CppUTest's core design principles
 
 To write your first test, all you need is a new cpp file with a TEST_GROUP and a TEST, like:
 {% highlight c++ %}
+#include "CppUTest/TestHarness.h"
+
 TEST_GROUP(FirstTestGroup)
 {
 };
@@ -60,6 +62,8 @@ One of the key design goals in CppUTest is to make it *very easy* to add and rem
 Of course, in order to get it to run, you'll need to create a main. Most of the mains in CppUTest are very similar. They typically are in an AllTests.cpp file and look like this:
 
 {% highlight c++ %}
+#include "CppUTest/CommandLineTestRunner.h"
+
 int main(int ac, char** av)
 {
     return CommandLineTestRunner::RunAllTests(ac, av);
@@ -107,7 +111,7 @@ You need to add CppUTest library to the linker flags, for example, like:
      LD_LIBRARIES = -L$(CPPUTEST_HOME)/lib -lCppUTest -lCppUTestExt
 {% endhighlight %}
 
-(The last flags is only needed when you want to use extensions such as mocking)
+(The last flag is only needed when you want to use extensions such as mocking)
 
 <a id="test_macros"> </a>
 
@@ -144,9 +148,9 @@ The failure of one of these macros causes the current test to immediately exit:
 
 <a id="setup_teardown"> </a>
 
-*CHECK_EQUALS Warning:*
+*CHECK_EQUAL Warning:*
 
-CHECK_EQUAL(expected, actual) can produce misleading error reports as it will evaluate expected and actual more than ones. THis especially leads to confusions when used with mocks. This happens if the mock function expects to be called exactly once, since the macro needs to evaluate the actual expression more than once. The problem does not occur with type specific checks (e.g. LONGS_EQUAL()), so it is recommended to use them if possible. Instead of:
+CHECK_EQUAL(expected, actual) can produce misleading error reports as it will evaluate expected and actual more than ones. This especially leads to confusions when used with mocks. This happens if the mock function expects to be called exactly once, since the macro needs to evaluate the actual expression more than once. The problem does not occur with type specific checks (e.g. LONGS_EQUAL()), so it is recommended to use them if possible. Instead of:
 
 {% highlight c++ %}
 CHECK_EQUAL(10, mock_returning_11())
@@ -266,7 +270,7 @@ These are added by default when you use the CppUTest Makefile helpers.
 
 ### Turning memory leak detection off and on
 
-If you want to disable the memory leak detection (because you got too much memory leaks?) then you can do so in several ways. However, it is strongly recommended to keep the memory leak detector on and fix your memory leaks (and your static initialization issues) as this tends to lead to higher quality code.
+If you want to disable the memory leak detection (because you have too many memory leaks?) then you can do so in several ways. However, it is strongly recommended to keep the memory leak detector on and fix your memory leaks (and your static initialization issues) as this tends to lead to higher quality code.
 
 You can turn the memory leak detection completely off by adding this to your main:
 
@@ -316,7 +320,7 @@ Now the call to the compiler needs to be -include MyOwnNewMacros.h and this will
 
 ### Conflicts with my own overload!
 
-This one is harder (and luckily less common). You can solve this the same way as the conflict in STL, but its probably better to use a finer grained control. So, instead you can temporary disable the new macros, overload operator new, enable the new macro again. This can be done with the following code:
+This one is harder (and luckily less common). You can solve this the same way as the conflict in STL, but it's probably better to use a finer grained control. So, instead you can temporary disable the new macros, overload operator new, enable the new macro again. This can be done with the following code:
 
 {% highlight c++ %}
 class NewDummyClass
@@ -608,7 +612,7 @@ The most important line to add is the GTestConvertor. Make sure you define the C
 
 ## Running Google Tests in CppUTest
 
-People feel wonderfully religious about unit testing tools. Of course, we feel strongly that CppUTest beats other tools when you actually test-drive your software. But unfortunately, people still use tools like GoogleTest (which is actually not as bad as e.g. CppUnit). It is unlikely that we're going to convince people to use CppUTest instead, so therefore we've written some integration code where you can actually link google test and CppUTest tests together in one binary (with the CppUTest test runner). THis also gives you some additional benefits:
+People feel wonderfully religious about unit testing tools. Of course, we feel strongly that CppUTest beats other tools when you actually test-drive your software. But unfortunately, people still use tools like GoogleTest (which is actually not as bad as e.g. CppUnit). It is unlikely that we're going to convince people to use CppUTest instead, so therefore we've written some integration code where you can actually link google test and CppUTest tests together in one binary (with the CppUTest test runner). This also gives you some additional benefits:
 
 * You get memory leak detection over your google tests...
 * You don't get the verbose gtest output
