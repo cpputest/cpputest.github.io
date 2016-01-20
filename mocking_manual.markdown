@@ -204,7 +204,7 @@ public:
     {
         return object1 == object2;
     }
-    virtual SimpleString valueToString(cont void* object)
+    virtual SimpleString valueToString(const void* object)
     {
         return StringFrom(object);
     }
