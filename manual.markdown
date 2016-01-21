@@ -89,7 +89,7 @@ If you have a system installed version (e.g. via apt-get) then you probably don'
 For the compiler you have to add the include path and optional (but recommended) the CppUTest pre-include header which enables debug information for the memory leak detector *and* offers memory leak detection in C. Lets start with the include path, you'll need to add:
 
 {% highlight make %}
-    CPPFLAGS += -I(CPPUTEST_HOME)/include
+    CPPFLAGS += -I$(CPPUTEST_HOME)/include
 {% endhighlight %}
 
 (CPPFLAGS works for both .c and .cpp files!)
