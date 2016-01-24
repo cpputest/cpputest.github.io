@@ -425,7 +425,7 @@ void printHelloWorld()
 
 ## Scripts
 
-There are some scripts that are helpful in creating your initial h, source, and
+There are some scripts that are helpful in creating your initial header, source, and
 Test files.  These save a lot of typing.  See scripts/README.TXT from the CppUTest distribution.
 
 <a id="advanced"> </a>
