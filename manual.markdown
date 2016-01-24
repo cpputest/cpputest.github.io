@@ -448,7 +448,7 @@ The Extensions directory has a few of these.
 * TestPlugins can be used for, for example, system stability and resource handling like files, memory or network connection clean-up.
 * In CppUTest, the memory leak detection is done via a default enabled TestPlugin
 
-### How can tests run when they are linked in a library
+### How to run tests when they are linked in a library
 
 In larger projects, it is often useful if you can link the tests in "libraries of tests" and then link them to the library of a component or link them all together to be able to run all the unit tests. Putting the tests in a library however causes an interesting problem because the lack of reference to the tests (due to the auto-registration of tests) causes the linker to discard the tests and it won't run any of them. There are two different work-arounds for this:
 
