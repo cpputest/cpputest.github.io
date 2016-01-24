@@ -309,7 +309,7 @@ If you want to completely disable memory leak detection then you can do so by bu
 It is common for the memory leak detection macros to conflict with an overloaded operator new or with STL. This is because the macro replaces the call to operator new to a call to operator new with __FILE__, and __LINE__. If you overload operator new, it will replace your overloaded definition resulting in a compiler error. This is common when using the Standard C++ library (STL).
 
 #### Resolving conflicts with STL
-The easiest way is not to pass the --include MemoryLeakDetectionNewMacros.h to the compiler, but this would lose all your file and line information. So this is not recommended. An alternative is to create your own NewMacros.h file which will include the STL file *before* the new macro is defined. For example, the following NewMacros file can be used for a program that uses std::list:
+The easiest way is to not pass the --include MemoryLeakDetectionNewMacros.h to the compiler, but this would lose all your file and line information. So this is not recommended. An alternative is to create your own NewMacros.h file which will include the STL file *before* the new macro is defined. For example, the following NewMacros file can be used for a program that uses std::list:
 
 {% highlight c++ %}
 #include "list"
