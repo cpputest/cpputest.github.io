@@ -320,7 +320,7 @@ Now the call to the compiler needs to be -include MyOwnNewMacros.h and this will
 
 ### Conflicts with my own overload!
 
-This one is harder (and luckily less common). You can solve this the same way as the conflict in STL, but it's probably better to use a finer grained control. So, instead you can temporary disable the new macros, overload operator new, enable the new macro again. This can be done with the following code:
+This one is harder (and luckily less common). You can solve this the same way as the conflict with the STL, but it's probably better to use a finer grained control. So, instead you can temporary disable the new macros, overload operator new, enable the new macro again. This can be done with the following code:
 
 {% highlight c++ %}
 class NewDummyClass
