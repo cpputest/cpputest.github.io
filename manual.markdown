@@ -150,7 +150,7 @@ The failure of one of these macros causes the current test to immediately exit:
 
 *CHECK_EQUAL Warning:*
 
-CHECK_EQUAL(expected, actual) can produce misleading error reports as it will evaluate expected and actual more than ones. This especially leads to confusions when used with mocks. This happens if the mock function expects to be called exactly once, since the macro needs to evaluate the actual expression more than once. The problem does not occur with type specific checks (e.g. LONGS_EQUAL()), so it is recommended to use them if possible. Instead of:
+CHECK_EQUAL(expected, actual) can produce misleading error reports as it will evaluate expected and actual more than once. This especially leads to confusions when used with mocks. This happens if the mock function expects to be called exactly once, since the macro needs to evaluate the actual expression more than once. The problem does not occur with type specific checks (e.g. LONGS_EQUAL()), so it is recommended to use them if possible. Instead of:
 
 {% highlight c++ %}
 CHECK_EQUAL(10, mock_returning_11())
