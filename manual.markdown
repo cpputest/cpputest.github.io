@@ -150,7 +150,7 @@ The failure of one of these macros causes the current test to immediately exit:
 
 *CHECK_EQUAL Warning:*
 
-CHECK_EQUAL(expected, actual) can produce misleading error reports as it will evaluate expected and actual more than ones. This especially leads to confusions when used with mocks. This happens if the mock function expects to be called exactly once, since the macro needs to evaluate the actual expression more than once. The problem does not occur with type specific checks (e.g. LONGS_EQUAL()), so it is recommended to use them if possible. Instead of:
+CHECK_EQUAL(expected, actual) can produce misleading error reports as it will evaluate expected and actual more than once. This especially leads to confusions when used with mocks. This happens if the mock function expects to be called exactly once, since the macro needs to evaluate the actual expression more than once. The problem does not occur with type specific checks (e.g. LONGS_EQUAL()), so it is recommended to use them if possible. Instead of:
 
 {% highlight c++ %}
 CHECK_EQUAL(10, mock_returning_11())
@@ -306,10 +306,10 @@ If you want to completely disable memory leak detection then you can do so by bu
 
 ### Conflicts with operator new macros (STL!)
 
-It is common for the memory leak detection macros to conflict with an overloaded operator new or with STL. This is because the macro replaces the call to operator new to a call to operator new with __FILE__, and __LINE__. If you overload operator new, it will replace your overloaded definition resulting in a compiler error. This is common when using Standard C++ library (STL).
+It is common for the memory leak detection macros to conflict with an overloaded operator new or with STL. This is because the macro replaces the call to operator new to a call to operator new with __FILE__, and __LINE__. If you overload operator new, it will replace your overloaded definition resulting in a compiler error. This is common when using the Standard C++ library (STL).
 
 #### Resolving conflicts with STL
-The easiest way is not to pass the --include MemoryLeakDetectionNewMacros.h to the compiler, but this would lose all your file and line information. So this is not recommended. An alternative is to create your own NewMacros.h file which will include the STL file *before* the new macro is defined. For example, the following NewMacros file can be used for a program that uses std::list:
+The easiest way is to not pass the --include MemoryLeakDetectionNewMacros.h to the compiler, but this would lose all your file and line information. So this is not recommended. An alternative is to create your own NewMacros.h file which will include the STL file *before* the new macro is defined. For example, the following NewMacros file can be used for a program that uses std::list:
 
 {% highlight c++ %}
 #include "list"
@@ -320,7 +320,7 @@ Now the call to the compiler needs to be -include MyOwnNewMacros.h and this will
 
 ### Conflicts with my own overload!
 
-This one is harder (and luckily less common). You can solve this the same way as the conflict in STL, but it's probably better to use a finer grained control. So, instead you can temporary disable the new macros, overload operator new, enable the new macro again. This can be done with the following code:
+This one is harder (and luckily less common). You can solve this the same way as the conflict with the STL, but it's probably better to use a finer grained control. So, instead you can temporary disable the new macros, overload operator new, enable the new macro again. This can be done with the following code:
 
 {% highlight c++ %}
 class NewDummyClass
@@ -349,7 +349,7 @@ Tbd
 
 ## Test Plugins
 
-Test plugins let you add a preaction and a post action to each test case.  Plugin examples:
+Test plugins let you add a pre-action and a post-action to each test case.  Plugin examples:
 
 * Memory leak detector (provided)
 * Pointer restore mechanism (provided) - helpful when tests overwrite a pointer that must be restored to its original value after the test.  This is especially helpful when a pointer to a function is modified for test purposes.
@@ -425,8 +425,8 @@ void printHelloWorld()
 
 ## Scripts
 
-There are some scripts that are helpful in creating your initial h, source, and
-Test files.  These save a lot of typing.  See scripts/README.TXT from the CppUTest distribution.
+There are some scripts that are helpful in creating your initial header, source, and
+Test files.  These scripts save a lot of typing.  See scripts/README.TXT from the CppUTest distribution.
 
 <a id="advanced"> </a>
 
@@ -448,7 +448,7 @@ The Extensions directory has a few of these.
 * TestPlugins can be used for, for example, system stability and resource handling like files, memory or network connection clean-up.
 * In CppUTest, the memory leak detection is done via a default enabled TestPlugin
 
-### How can tests run when they are linked in a library
+### How to run tests when they are linked in a library
 
 In larger projects, it is often useful if you can link the tests in "libraries of tests" and then link them to the library of a component or link them all together to be able to run all the unit tests. Putting the tests in a library however causes an interesting problem because the lack of reference to the tests (due to the auto-registration of tests) causes the linker to discard the tests and it won't run any of them. There are two different work-arounds for this:
 
