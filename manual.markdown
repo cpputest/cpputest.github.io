@@ -349,7 +349,7 @@ Tbd
 
 ## Test Plugins
 
-Test plugins let you add a preaction and a post action to each test case.  Plugin examples:
+Test plugins let you add a pre-action and a post-action to each test case.  Plugin examples:
 
 * Memory leak detector (provided)
 * Pointer restore mechanism (provided) - helpful when tests overwrite a pointer that must be restored to its original value after the test.  This is especially helpful when a pointer to a function is modified for test purposes.
