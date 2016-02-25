@@ -253,7 +253,7 @@ mock().expectOneCall("Foo").withOutputParameterReturning("bar", &outputValue, si
 {% highlight c++ %}
 void Foo(int *bar)
 {
-    mock().actualCall("foo").withOutputParameter("bar", bar);
+    mock().actualCall("Foo").withOutputParameter("bar", bar);
 }
 {% endhighlight %}
 
