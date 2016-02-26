@@ -482,7 +482,7 @@ Sometimes it is useful to access the mocking framework from a .c file rather tha
 #include "CppUTestExt/MockSupport_c.h"
 
 mock_c()->expectOneCall("foo")->withIntParameters("integer", 10)->andReturnDoubleValue(1.11);
-mock_c()->actualCall("foo")->withIntParameters("integer", 10)->returnValue().value.doubleValue;
+return mock_c()->actualCall("foo")->withIntParameters("integer", 10)->returnValue().value.doubleValue;
 
 mock_c()->installComparator("type", equalMethod, toStringMethod);
 mock_scope_c("scope")->expectOneCall("bar")->withParameterOfType("type", "name", object);
@@ -496,6 +496,20 @@ mock_c()->clear();
 {% endhighlight %}
 
 The C interface uses a similar builder structure as the C++ interface. It is far less common in C, but it works the same.
+
+It is now also possible to specify the actual return value in the same way as with C++ (3.8):
+
+{% highlight c++ %}
+return mock_c()->actualCall("foo")->withIntParameters("integer", 10)->doubleReturnValue();
+return mock_c()->doubleReturnValue();
+{% endhighlight %}
+
+and to specify a default return value, in case mocking is currently disabled when the actual call occurs (3.8):
+
+{% highlight c++ %}
+return mock_c()->actualCall("foo")->withIntParameters("integer", 10)->returnDoubleValueOrDefault(2.25);
+return mock_c()->returnDoubleValueOrDefault(2.25);
+{% endhighlight %}
 
 <a id="miscellaneous"></a>
 
