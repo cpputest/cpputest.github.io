@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Plugins Manual
+title: Plugin Manual
 ---
 
 ## Table of Content
