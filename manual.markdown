@@ -353,73 +353,10 @@ Test plugins let you add a pre-action and a post-action to each test case.  Plug
 
 * Memory leak detector (provided)
 * Pointer restore mechanism (provided) - helpful when tests overwrite a pointer that must be restored to its original value after the test.  This is especially helpful when a pointer to a function is modified for test purposes.
+* IEEE754 Floating point exceptions (provided; 3.8) - automatically checks whether any floating point exception flags are set at the end of every test and if so, fails the test.
 * All Mutex's released - you could write a plugin that checks that any Mutexs or other shared resource is released before the test exits.
 
-Example of a main with a SetPointerPlugin:
-
-{% highlight c++ %}
-int main(int ac, char** av)
-{
-    TestRegistry* r = TestRegistry::getCurrentRegistry();
-    SetPointerPlugin ps("PointerStore");
-    r->installPlugin(&ps);
-    return CommandLineTestRunner::RunAllTests(ac, av);
-}
-
-TEST_GROUP(HelloWorld)
-{
-   static int output_method(const char* output, ...)
-   {
-      va_list arguments;
-      va_start(arguments, output);
-      cpputest_snprintf(buffer, BUFFER_SIZE, output, arguments);
-      va_end(arguments);
-      return 1;
-   }
-   void setup()
-   {
-      //overwrite the production function pointer witha an output method that captures
-      //output in a buffer.
-      UT_PTR_SET(helloWorldApiInstance.printHelloWorld_output, &output_method);
-   }
-   void teardown()
-   {
-   }
-};
-
-TEST(HelloWorld, PrintOk)
-{
-   printHelloWorld();
-   STRCMP_EQUAL("Hello World!\n", buffer)
-}
-
-//Hello.h
-#ifndef HELLO_H_
-#define HELLO_H_
-
-extern void printHelloWorld();
-
-struct helloWorldApi {
-   int (*printHelloWorld_output) (const char*, ...);
-};
-
-#endif /*HELLO_H_*/
-
-//Hello.c
-
-#include <stdio.h>
-#include "hello.h"
-
-//in production, print with printf.
-struct helloWorldApi helloWorldApiInstance = {
-   &printf
-};
-
-void printHelloWorld()
-{
-   helloWorldApiInstance.printHelloWorld_output("Hello World!\n");
-}
-{% endhighlight %}
+Complete Documentation for provided plugins can be found on the [Plugins Manual](plugins_manual.html) page.
 
 <a id="scripts"> </a>
 
