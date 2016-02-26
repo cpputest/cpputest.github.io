@@ -101,6 +101,12 @@ If the call to productionCode wouldn't happen, then the test would fail with the
         ACTUAL calls that did happen:
             <none>
 
+Sometimes you expect *several identical calls* to the same function, for example five calls to productionCode. There is a convenient shorthand for that situation:
+
+{% highlight c++ %}
+mock().expectNCalls(5, "productionCode");
+{% endhighlight %}
+
 <a id="objects"> </a>
 
 ### Using Objects
@@ -563,12 +569,6 @@ return mock_c()->returnDoubleValueOrDefault(2.25);
 <a id="miscellaneous"></a>
 
 ### Miscellaneous
-
-If you expect several identical calls, for example five calls to productionCode, you can also use:
-
-{% highlight c++ %}
-mock().expectNCalls(5, "productionCode");
-{% endhighlight %}
 
 If you want your test to be more explicit about that a certain mocked function call should not occur, you can write (v3.8):
 
