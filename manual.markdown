@@ -222,22 +222,22 @@ The test execution of this will *likely* (no guarantee of order in CppUTest) be:
 
 ## Command line Switches
 
-* *-v* verbose, print each test name as it runs
 * *-c* colorize output, print green if OK, or red if failed
-* *-r#* repeat the tests some number (#) of times, or twice if # is not specified. This is handy if you are experiencing memory leaks. A second run that has no leaks indicates that someone is allocating statics and not releasing them.
 * *-g group* only run test whose group contains the substring *group*
-* *-sg group* only run test whose group exactly matches the string *group*
-* *-xg group* exclude tests whose group contains the substring *group*
-* *-n name* only run test whose name contains the substring *name*
-* *-sn name* only run test whose name exactly matches the string *name*
-* *-xn name* exclude tests whose name contains the substring *name*
-* *"TEST(group, name)"* only run test whose group and name matches the strings group and name. This can be used to copy-paste output from the -v option on the command line.
-* *-ojunit* output to JUnit ant plugin style xml files (for CI systems)
-* *-oteamcity* output to xml files (as the name suggests, for TeamCity)
 * *-k* package name, Add a package name in JUnit output (for classification in CI systems)
 * *-lg* print a list of group names, separated by spaces
 * *-ln* print a list of test names in the form of *group.name*, separated by spaces
+* *-n name* only run test whose name contains the substring *name*
+* *-ojunit* output to JUnit ant plugin style xml files (for CI systems)
+* *-oteamcity* output to xml files (as the name suggests, for TeamCity)
 * *-p* run tests in a separate process.
+* *-r#* repeat the tests some number (#) of times, or twice if # is not specified. This is handy if you are experiencing memory leaks. A second run that has no leaks indicates that someone is allocating statics and not releasing them.
+* *-sg group* only run test whose group exactly matches the string *group*
+* *-sn name* only run test whose name exactly matches the string *name*
+* *-v* verbose, print each test name as it runs
+* *-xg group* exclude tests whose group contains the substring *group*
+* *-xn name* exclude tests whose name contains the substring *name*
+* *"TEST(group, name)"* only run test whose group and name matches the strings group and name. This can be used to copy-paste output from the -v option on the command line.
 
 You can specify multiple -s&#124;sg, -s&#124;sn and "TEST(group, name)" parameters: 
 
