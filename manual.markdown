@@ -553,6 +553,22 @@ int main(int ac, char** av)
 
 You can leave out TEST_GROUP_C_SETUP() / TEST_GROUP_C_TEARDOWN() and TEST_GROUP_C_SETUP_WRAPPER() / TEST_GROUP_C_TEARDOWN_WRAPPER(), if you don't need them.
 
+The following assertion macros are supported in the pure C interface:
+
+{% highlight c++ %}
+CHECK_EQUAL_C_INT(expected,actual);
+CHECK_EQUAL_C_REAL(expected,actual,threshold);
+CHECK_EQUAL_C_CHAR(expected,actual);
+CHECK_EQUAL_C_STRING(expected,actual);
+CHECK_EQUAL_C_POINTER(expected,actual); /* v3.8 */
+CHECK_EQUAL_C_BITS(expected, actual, mask); /* v3.8, pending */
+FAIL_TEXT_C(text);
+FAIL_C();
+CHECK_C(condition);
+{% endhighlight %}
+
+These macros ensure tests get terminated in a way appropriate for pure C code.
+
 <a id="gmock"> </a>
 
 ## Using Google Mock
