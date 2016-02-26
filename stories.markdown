@@ -4,11 +4,15 @@ title: Useful CppUTest Application Stories
 ---
 
 # Useful CppUTest Application Stories
+
 ## Table of Content
+
 * [Unit Testing With IAR Embedded Workbench](#iar)
 
 <a id="iar"> </a>
+
 ## Unit Testing With IAR Embedded Workbench
+
 By Heath Raftery
 
 [The original post in CppUTest google group](https://groups.google.com/forum/#!topic/cpputest/WxCfnVZYGHw)
@@ -16,6 +20,7 @@ By Heath Raftery
 I've just completed an assessment of CppUTest for adoption as our company's standard Unit Testing framework. It was a bit of a battle at times but I've come out victorious so would like to share my experience for three reasons: see if there's anything I could be doing better; provide a crumb trail for other pioneers; and also contribute to CppUTest itself.
 
 One of our strict criteria is compatibility with IAR Embedded Workbench 6.4 projects. We don't want to have to maintain a separate build environment just to run tests. Here's what I found:
+
 Pulling from git source was best way to download, since that simultaneously allows us to make local changes to enable a build and store it all in our own repositories, while still allowing synchronisation with changes to the CppUTest source. As a bonus, for our users that don't want to know about git, as far as they're concerned they're pulling the software from our (SVN) repository.
 
 To build the CppUTest library in IAR, I created a new empty IAR project in the root folder of cpputest and made the following changes:
