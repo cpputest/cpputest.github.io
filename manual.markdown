@@ -353,7 +353,7 @@ Test plugins let you add a pre-action and a post-action to each test case.  Plug
 
 * Memory leak detector (provided)
 * Pointer restore mechanism (provided) - helpful when tests overwrite a pointer that must be restored to its original value after the test.  This is especially helpful when a pointer to a function is modified for test purposes.
-* All Mutex's released - you could write a plugin that checks that any Mutexs or other shared resource is released before the test exists.
+* All Mutex's released - you could write a plugin that checks that any Mutexs or other shared resource is released before the test exits.
 
 Example of a main with a SetPointerPlugin:
 
