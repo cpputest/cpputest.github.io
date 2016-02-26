@@ -26,7 +26,7 @@ The main idea is to make manual mocking easier, rather than to make automated mo
 * [Passing other data](#other_data)
 * [Other MockSupport](#other_mock_support)
 * [MockSupport Scope](#mock_scope)
-* [MockPlugin](#mock_plugin)
+* [MockSupportPlugin](#mock_plugin)
 * [C Interface](#c_interface)
 * [Miscellaneous](#miscellaneous)
 
@@ -503,29 +503,9 @@ mock("filesystem").ignoreOtherCalls();
 
 <a id="mock_plugin"> </a>
 
-### MockPlugin
+### MockSupportPlugin
 
-CppUTest plugins can be installed in the main and 'extent' the unit test framework. It is a place where you can put work that needs to be done in all unit tests. There is a MockPlugin to make the work with mocks easier. It does the following work:
-
-* checkExpectations at the end of every test (on global scope, which goes recursive over all scopes)
-* clear all expectations at the end of every test
-* install all comparators that were configured in the plugin at the beginning of every test
-* remove all comparators at the end of every test
-
-Installing the MockPlugin means you'll have to add to main something like:
-
-{% highlight c++ %}
-#include "CppUTest/TestRegistry.h"
-#include "CppUTestExt/MockSupportPlugin.h"
-
-MyDummyComparator dummyComparator;
-MockSupportPlugin mockPlugin;
-
-mockPlugin.installComparator("MyDummyType", dummyComparator);
-TestRegistry::getCurrentRegistry()->installPlugin(&mockPlugin);
-{% endhighlight %}
-
-This code creates a comparator for MyDummy and installs it at the plugin. This means the comparator is available for all test cases. It creates the plugin and installs it at the current test registry. After installing the plugin, you don't have to worry too much anymore about calling checkExpectations or cleaning your MockSupport.
+CppUTest plugins can be installed in the main and 'extend' the unit test framework. It is a place where you can put work that needs to be done in all unit tests. There is a MockSupportPlugin to make the work with mocks easier. Complete Documentation for MockSupportPlugin can be found on the [Plugins Manual](plugins_manual.html) page.
 
 <a id="c_interface"> </a>
 
