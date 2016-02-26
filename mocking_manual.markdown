@@ -27,6 +27,7 @@ The main idea is to make manual mocking easier, rather than to make automated mo
 * [MockSupport Scope](#mock_scope)
 * [MockPlugin](#mock_plugin)
 * [C Interface](#c_interface)
+* [Miscellaneous](#miscellaneous)
 
 <a id="simple_scenario"> </a>
 
@@ -495,3 +496,21 @@ mock_c()->clear();
 {% endhighlight %}
 
 The C interface uses a similar builder structure as the C++ interface. It is far less common in C, but it works the same.
+
+<a id="miscellaneous"></a>
+
+### Miscellaneous
+
+If you expect several identical calls, for example five calls to productionCode, you can also use:
+
+{% highlight c++ %}
+mock().expectNCalls(5, "productionCode");
+{% endhighlight %}
+
+If you want your test to be more explicit about that a certain mocked function call should not occur, you can write (v3.8):
+
+{% highlight c++ %}
+mock().expectNoCall("productionCode");
+{% endhighlight %}
+
+Doing so is functionally equivalent to stating no expectations at all.
