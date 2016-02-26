@@ -21,6 +21,7 @@ The main idea is to make manual mocking easier, rather than to make automated mo
 * [Using Parameters](#parameters)
 * [Objects as Parameters](#objects_as_parameters)
 * [Output Parameters](#output_parameters)
+* [Output Parameters Using Objects](#output_parameters_using_objects)
 * [Return Values](#return_values)
 * [Passing other data](#other_data)
 * [Other MockSupport](#other_mock_support)
@@ -214,10 +215,10 @@ public:
 
 The isEqual is called to compare the two parameters. The valueToString is called when an error message is printed and it needs to print the actual and expected values. If you want to use normal C functions, you can use the MockFunctionComparator which accepts pointers to functions in the constructor.
 
-To remove the comparators, all you needs to do is call removeAllComparators, like:
+To remove the comparators, all you needs to do is call removeAllComparatorsAndCopiers, like:
 
 {% highlight c++ %}
-mock().removeAllComparators();
+mock().removeAllComparatorsAndCopiers();
 {% endhighlight %}
 
 Comparators sometimes lead to surprises, so a couple of warnings on its usage:
@@ -287,6 +288,54 @@ mock().expectOneCall("Foo").withOutputParameterReturning("bar", &doubleOutputVal
 *Warning 2:*
 
 * When a char, int, etc. array is passed to withOutputParameter, you must use the generic withOutputParameterReturning and provide the actual size of the array or only one element will be copied.
+
+<a id="output_parameters_using_objects"> </a>
+
+### Output Parameters Using Objects
+
+By far the best way to handle output parameters is by using a custom type copier (3.8). The general principle is similar to the custom comparators described above:
+
+{% highlight c++ %}
+MyType outputValue = 4;
+mock().expectOneCall("Foo").withOutputParameterOfTypeReturning("MyType", "bar",  &outputValue);
+{% endhighlight %}
+
+The corresponding actual call is:
+
+{% highlight c++ %}
+void Foo(int *bar)
+{
+    mock().actualCall("Foo").withOutputParameterOfType("MyType", "bar",  bar);
+}
+{% endhighlight %}
+
+When using withOutputParameterOfTypeReturning, the mocking framework needs to know how to copy the type and therefore a Copier has to be installed before using parameters of this type. This is done using installCopier, as below:
+
+{% highlight c++ %}
+MyTypeCopier copier;
+mock().installCopier("myType", copier);
+{% endhighlight %}
+
+MyTypeCopier is a custom copier, which implements the MockNamedValueCopier interface. For example:
+
+{% highlight c++ %}
+class MyTypeCopier : public MockNamedValueCopier
+{
+public:
+    virtual void copy(void* out, const void* in)
+    {
+        *(MyType*)out = *(const MyType*)in;
+    }
+};
+{% endhighlight %}
+
+To remove the copier, you need to call removeAllComparatorsAndCopiers, like:
+
+{% highlight c++ %}
+mock().removeAllComparatorsAndCopiers();
+{% endhighlight %}
+
+*Warning 1* and *Warning 2* above apply to copiers as well.
 
 <a id="return_values"> </a>
 
