@@ -251,7 +251,7 @@ Combining one -xg parameter with one -xn parameter will run only those tests tha
 
 Combining -s&#124;sg with -xn, or -s&#124;sn with -xg will run only those tests that satisfy both criteria.
 
-Specifying -xg or -xn in other combinations results in undefined behavior.
+Specifying several -xg or -xn with each other or in other combinations has no effect.
 
 *NOTE* Be careful with *-p*:
 
