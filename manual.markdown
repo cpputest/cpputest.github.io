@@ -224,14 +224,20 @@ The test execution of this will *likely* (no guarantee of order in CppUTest) be:
 
 * *-v* verbose, print each test name as it runs
 * *-c* colorize output, print green if OK, or red if failed
-* *-r#* repeat the tests some number (#) of times, or two times if # is not specified. This is handy if you are experiencing memory leaks. A second run that has no leaks indicates that someone is allocating statics and not releasing them.
-* *-g* group only run test whose group contains the substring group
-* *-sg* group only run test whose group exactly matches the string group
-* *-n* name only run test whose name contains the substring name
-* *-sn* name only run test whose name exactly matches the string name
+* *-r#* repeat the tests some number (#) of times, or twice if # is not specified. This is handy if you are experiencing memory leaks. A second run that has no leaks indicates that someone is allocating statics and not releasing them.
+* *-g group* only run test whose group contains the substring *group*
+* *-sg group* only run test whose group exactly matches the string *group*
+* *-xg group* exclude tests whose group contains the substring *group*
+* *-n name* only run test whose name contains the substring *name*
+* *-sn name* only run test whose name exactly matches the string *name*
+* *-xn name* exclude tests whose name contains the substring *name*
 * *"TEST(group, name)"* only run test whose group and name matches the strings group and name. This can be used to copy-paste output from the -v option on the command line.
 * *-ojunit* output to JUnit ant plugin style xml files (for CI systems)
+* *-oteamcity* output to xml files (as the name suggests, for TeamCity)
 * *-k* package name, Add a package name in JUnit output (for classification in CI systems)
+* *-lg* print a list of group names, separated by spaces
+* *-ln* print a list of test names in the form of *group.name*, separated by spaces
+* *-p* run tests in a separate process.
 
 You can specify multiple -s&#124;sg, -s&#124;sn and "TEST(group, name)" parameters: 
 
@@ -240,6 +246,27 @@ Specifying only test groups with multiple -s&#124;sg parameters will run all tes
 Specifying only test names with multiple -s&#124;sn parameters will run all tests whose names match, since no test group matches all test groups.
 
 Mixing multiple -s&#124;sg and -s&#124;sn parameters (or using "TEST(group, name)" will only run tests whose groups match as well as their names.
+
+Combining one -xg parameter with one -xn parameter will run only those tests that satisfy both criteria.
+
+Combining -s&#124;sg with -xn, or -s&#124;sn with -xg will run only those tests that satisfy both criteria.
+
+Specifying -xg or -xn in other combinations results in undefined behavior.
+
+*NOTE* Be careful with *-p*:
+
+* Some systems do not support this feature, in which case tests will fail
+  with a suitable message.
+* Using *-p* to run tests in a separate process can have unexpected side
+  effects.
+* While running tests in a separate process can help to get more information
+  about an unexpected crash, when an expected crash is part of the test scenario,
+  the *-p* command line option should not be used, but running in a separate
+  process should be enabled on a per-test basis like this:
+  {% highlight c++ %}
+  TestRegistry::getCurrentRegistry()->setRunTestsInSeperateProcess();
+  {% endhighlight %}
+  Examples for this can be found in CppUTests's own tests.
 
 <a id="memory_leak_detection"> </a>
 
