@@ -505,7 +505,7 @@ mock("filesystem").ignoreOtherCalls();
 
 ### MockSupportPlugin
 
-CppUTest plugins can be installed in the main and 'extend' the unit test framework. It is a place where you can put work that needs to be done in all unit tests. There is a MockSupportPlugin to make the work with mocks easier. Complete Documentation for MockSupportPlugin can be found on the [Plugins Manual](plugins_manual.html) page.
+There is a MockSupportPlugin to make the work with mocks easier. Complete Documentation for MockSupportPlugin can be found on the [Plugins Manual](plugins_manual.html) page.
 
 <a id="c_interface"> </a>
 

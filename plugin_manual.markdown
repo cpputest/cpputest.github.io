@@ -3,6 +3,8 @@ layout: default
 title: Plugin Manual
 ---
 
+CppUTest plugins can be installed in the main and 'extend' the unit test framework. A plugin is a place where you can put work that needs to be done in all unit tests.
+
 ## Table of Content
 
 * [SetPointerPlugin](#setpointerplugin)
