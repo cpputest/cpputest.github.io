@@ -235,8 +235,8 @@ The test execution of this will *likely* (no guarantee of order in CppUTest) be:
 * *-sg group* only run test whose group exactly matches the string *group*
 * *-sn name* only run test whose name exactly matches the string *name*
 * *-v* verbose, print each test name as it runs
-* *-xg group* exclude tests whose group contains the substring *group*
-* *-xn name* exclude tests whose name contains the substring *name*
+* *-xg group* exclude tests whose group contains the substring *group* (3.8)
+* *-xn name* exclude tests whose name contains the substring *name* (3.8)
 * *"TEST(group, name)"* only run test whose group and name matches the strings group and name. This can be used to copy-paste output from the -v option on the command line.
 
 You can specify multiple -s&#124;sg, -s&#124;sn and "TEST(group, name)" parameters: 
