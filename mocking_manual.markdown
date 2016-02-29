@@ -299,7 +299,7 @@ mock().expectOneCall("Foo").withOutputParameterReturning("bar", &doubleOutputVal
 
 ### Output Parameters Using Objects
 
-By far the best way to handle output parameters is by using a custom type copier (3.8). The general principle is similar to the custom comparators described above:
+By far the best way to handle output parameters is by using a custom type copier (v3.8). The general principle is similar to the custom comparators described above:
 
 {% highlight c++ %}
 MyType outputValue = 4;
@@ -532,14 +532,14 @@ mock_c()->clear();
 
 The C interface uses a similar builder structure as the C++ interface. It is far less common in C, but it works the same.
 
-It is now also possible to specify the actual return value in the same way as with C++ (3.8):
+It is now also possible to specify the actual return value in the same way as with C++ (v3.8):
 
 {% highlight c++ %}
 return mock_c()->actualCall("foo")->withIntParameters("integer", 10)->doubleReturnValue();
 return mock_c()->doubleReturnValue();
 {% endhighlight %}
 
-and to specify a default return value, in case mocking is currently disabled when the actual call occurs (3.8):
+and to specify a default return value, in case mocking is currently disabled when the actual call occurs (v3.8):
 
 {% highlight c++ %}
 return mock_c()->actualCall("foo")->withIntParameters("integer", 10)->returnDoubleValueOrDefault(2.25);

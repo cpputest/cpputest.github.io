@@ -246,8 +246,8 @@ The test execution of this will *likely* (no guarantee of order in CppUTest) be:
 * *-sg group* only run test whose group exactly matches the string *group*
 * *-sn name* only run test whose name exactly matches the string *name*
 * *-v* verbose, print each test name as it runs
-* *-xg group* exclude tests whose group contains the substring *group* (3.8)
-* *-xn name* exclude tests whose name contains the substring *name* (3.8)
+* *-xg group* exclude tests whose group contains the substring *group* (v3.8)
+* *-xn name* exclude tests whose name contains the substring *name* (v3.8)
 * *"TEST(group, name)"* only run test whose group and name matches the strings group and name. This can be used to copy-paste output from the -v option on the command line.
 
 You can specify multiple -s&#124;sg, -s&#124;sn and "TEST(group, name)" parameters: 
@@ -391,7 +391,7 @@ Test plugins let you add a pre-action and a post-action to each test case.  Plug
 
 * Memory leak detector (provided)
 * Pointer restore mechanism (provided) - helpful when tests overwrite a pointer that must be restored to its original value after the test.  This is especially helpful when a pointer to a function is modified for test purposes.
-* IEEE754 Floating point exceptions (provided; 3.8) - automatically checks whether any floating point exception flags are set at the end of every test and if so, fails the test.
+* IEEE754 Floating point exceptions (provided; v3.8) - automatically checks whether any floating point exception flags are set at the end of every test and if so, fails the test.
 * All Mutex's released - you could write a plugin that checks that any Mutexs or other shared resource is released before the test exits.
 
 Complete Documentation for provided plugins can be found on the [Plugins Manual](plugins_manual.html) page.

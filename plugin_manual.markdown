@@ -120,12 +120,12 @@ This plugin detects floating point error conditions and fails the test, if any w
 This is a list of floating point error conditions, and how they are supported by the plugin:
 
 {% highlight c++ %}
-FE_DIVBYZERO   /* supported (3.8) */
-FE_OVERFLOW    /* supported (3.8) */
-FE_UNDERFLOW   /* supported (3.8) */
-FE_INVALID     /* supported (3.8) */
-FE_INEXACT     /* supported; disabled by default (3.8) */
-FE_DENORMAL    /* NOT supported (3.8) */
+FE_DIVBYZERO   /* supported (v3.8) */
+FE_OVERFLOW    /* supported (v3.8) */
+FE_UNDERFLOW   /* supported (v3.8) */
+FE_INVALID     /* supported (v3.8) */
+FE_INEXACT     /* supported; disabled by default (v3.8) */
+FE_DENORMAL    /* NOT supported (v3.8) */
 {% endhighlight %}
 
 You can turn on FE_INEXACT checking manually, although this probably won't be very useful most of the time, since almost every floating-point operation is likely to set this flag:
