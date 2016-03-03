@@ -137,7 +137,7 @@ IEEE754ExceptionsPlugin::enableInexact();
 IEEE754ExceptionsPlugin::disableInexact();
 {% endhighlight %}
 
-# Example
+### Example
 
 {% highlight c++ %}
 #include "CppUTest/CommandLineTestRunner.h"
