@@ -137,14 +137,25 @@ The failure of one of these macros causes the current test to immediately exit:
 
 * CHECK(boolean condition) - checks any boolean result.
 * CHECK_TEXT(boolean condition, text) - checks any boolean result and prints text on failure.
+* CHECK_FALSE(condition) - checks any boolean result
+* CHECK_FALSE_TEXT(condition, text) - checks any boolean result and prints text on failure.
 * CHECK_EQUAL(expected, actual) - checks for equality between entities using ==. So if you have a class that supports operator==() you can use this macro to compare two instances.  You will also need to add a StringFrom() function like those found in SimpleString. This is for printing the objects when the check failed.
 * CHECK_THROWS(expected_exception, expression) - checks if expression throws expected_exception (e.g. std::exception). CHECK_THROWS is only available if CppUTest is built with the Standard C++ Library (default).
-* STRCMP_EQUAL(expected, actual) - check const char* strings for equality using strcmp().
-* LONGS_EQUAL(expected, actual) - Compares two numbers.
-* BYTES_EQUAL(expected, actual) - Compares two numbers, eight bits wide.
-* POINTERS_EQUAL(expected, actual) - Compares two pointers.
-* DOUBLES_EQUAL(expected, actual, tolerance) - Compares two doubles within some tolerance
+* STRCMP_EQUAL(expected, actual) - checks const char* strings for equality using strcmp().
+* STRNCMP_EQUAL(expected, actual, length) - checks const char* strings for equality using strncmp().
+* STRCMP_NOCASE_EQUAL(expected, actual) - checks const char* strings for equality, not considering case.
+* STRCMP_CONTAINS(expected, actual) - checks whether const char* actual contains const char* expected.
+* LONGS_EQUAL(expected, actual) - compares two numbers.
+* UNSIGNED_LONGS_EQUAL(expected, actual) - compares two positive numbers.
+* BYTES_EQUAL(expected, actual) - compares two numbers, eight bits wide.
+* POINTERS_EQUAL(expected, actual) - compares two pointers.
+* DOUBLES_EQUAL(expected, actual, tolerance) - compares two floating point numbers within some tolerance
+* FUNCTIONPOINTERS_EQUAL_TEXT(expected, actual, text) - compares two void (*)() function pointers
+* MEMCMP_EQUAL(expected, actual, size) - compares two areas of memory
+* BITS_EQUAL(expected, actual, mask) - compares expected to actual bit by bit, applying mask
 * FAIL(text) - always fails
+
+*NOTE* Many macros have _TEXT() equivalents, which are not explicitly listed here.
 
 <a id="setup_teardown"> </a>
 
@@ -222,16 +233,22 @@ The test execution of this will *likely* (no guarantee of order in CppUTest) be:
 
 ## Command line Switches
 
-* *-v* verbose, print each test name as it runs
 * *-c* colorize output, print green if OK, or red if failed
-* *-r#* repeat the tests some number (#) of times, or two times if # is not specified. This is handy if you are experiencing memory leaks. A second run that has no leaks indicates that someone is allocating statics and not releasing them.
-* *-g* group only run test whose group contains the substring group
-* *-sg* group only run test whose group exactly matches the string group
-* *-n* name only run test whose name contains the substring name
-* *-sn* name only run test whose name exactly matches the string name
-* *"TEST(group, name)"* only run test whose group and name matches the strings group and name. This can be used to copy-paste output from the -v option on the command line.
-* *-ojunit* output to JUnit ant plugin style xml files (for CI systems)
+* *-g group* only run test whose group contains the substring *group*
 * *-k* package name, Add a package name in JUnit output (for classification in CI systems)
+* *-lg* print a list of group names, separated by spaces
+* *-ln* print a list of test names in the form of *group.name*, separated by spaces
+* *-n name* only run test whose name contains the substring *name*
+* *-ojunit* output to JUnit ant plugin style xml files (for CI systems)
+* *-oteamcity* output to xml files (as the name suggests, for TeamCity)
+* *-p* run tests in a separate process.
+* *-r#* repeat the tests some number (#) of times, or twice if # is not specified. This is handy if you are experiencing memory leaks. A second run that has no leaks indicates that someone is allocating statics and not releasing them.
+* *-sg group* only run test whose group exactly matches the string *group*
+* *-sn name* only run test whose name exactly matches the string *name*
+* *-v* verbose, print each test name as it runs
+* *-xg group* exclude tests whose group contains the substring *group* (v3.8)
+* *-xn name* exclude tests whose name contains the substring *name* (v3.8)
+* *"TEST(group, name)"* only run test whose group and name matches the strings group and name. This can be used to copy-paste output from the -v option on the command line.
 
 You can specify multiple -s&#124;sg, -s&#124;sn and "TEST(group, name)" parameters: 
 
@@ -240,6 +257,27 @@ Specifying only test groups with multiple -s&#124;sg parameters will run all tes
 Specifying only test names with multiple -s&#124;sn parameters will run all tests whose names match, since no test group matches all test groups.
 
 Mixing multiple -s&#124;sg and -s&#124;sn parameters (or using "TEST(group, name)" will only run tests whose groups match as well as their names.
+
+Combining one -xg parameter with one -xn parameter will run only those tests that satisfy both criteria.
+
+Combining -s&#124;sg with -xn, or -s&#124;sn with -xg will run only those tests that satisfy both criteria.
+
+Specifying several -xg or -xn with each other or in other combinations has no effect.
+
+*NOTE* Be careful with *-p*:
+
+* Some systems do not support this feature, in which case tests will fail
+  with a suitable message.
+* Using *-p* to run tests in a separate process can have unexpected side
+  effects.
+* While running tests in a separate process can help to get more information
+  about an unexpected crash, when an expected crash is part of the test scenario,
+  the *-p* command line option should not be used, but running in a separate
+  process should be enabled on a per-test basis like this:
+  {% highlight c++ %}
+  TestRegistry::getCurrentRegistry()->setRunTestsInSeperateProcess();
+  {% endhighlight %}
+  Examples for this can be found in CppUTests's own tests.
 
 <a id="memory_leak_detection"> </a>
 
@@ -353,73 +391,10 @@ Test plugins let you add a pre-action and a post-action to each test case.  Plug
 
 * Memory leak detector (provided)
 * Pointer restore mechanism (provided) - helpful when tests overwrite a pointer that must be restored to its original value after the test.  This is especially helpful when a pointer to a function is modified for test purposes.
-* All Mutex's released - you could write a plugin that checks that any Mutexs or other shared resource is released before the test exists.
+* IEEE754 Floating point exceptions (provided; v3.8) - automatically checks whether any floating point exception flags are set at the end of every test and if so, fails the test.
+* All Mutex's released - you could write a plugin that checks that any Mutexs or other shared resource is released before the test exits.
 
-Example of a main with a SetPointerPlugin:
-
-{% highlight c++ %}
-int main(int ac, char** av)
-{
-    TestRegistry* r = TestRegistry::getCurrentRegistry();
-    SetPointerPlugin ps("PointerStore");
-    r->installPlugin(&ps);
-    return CommandLineTestRunner::RunAllTests(ac, av);
-}
-
-TEST_GROUP(HelloWorld)
-{
-   static int output_method(const char* output, ...)
-   {
-      va_list arguments;
-      va_start(arguments, output);
-      cpputest_snprintf(buffer, BUFFER_SIZE, output, arguments);
-      va_end(arguments);
-      return 1;
-   }
-   void setup()
-   {
-      //overwrite the production function pointer witha an output method that captures
-      //output in a buffer.
-      UT_PTR_SET(helloWorldApiInstance.printHelloWorld_output, &output_method);
-   }
-   void teardown()
-   {
-   }
-};
-
-TEST(HelloWorld, PrintOk)
-{
-   printHelloWorld();
-   STRCMP_EQUAL("Hello World!\n", buffer)
-}
-
-//Hello.h
-#ifndef HELLO_H_
-#define HELLO_H_
-
-extern void printHelloWorld();
-
-struct helloWorldApi {
-   int (*printHelloWorld_output) (const char*, ...);
-};
-
-#endif /*HELLO_H_*/
-
-//Hello.c
-
-#include <stdio.h>
-#include "hello.h"
-
-//in production, print with printf.
-struct helloWorldApi helloWorldApiInstance = {
-   &printf
-};
-
-void printHelloWorld()
-{
-   helloWorldApiInstance.printHelloWorld_output("Hello World!\n");
-}
-{% endhighlight %}
+Complete Documentation for provided plugins can be found on the [Plugins Manual](plugins_manual.html) page.
 
 <a id="scripts"> </a>
 
@@ -552,6 +527,22 @@ int main(int ac, char** av)
 {% endhighlight %}
 
 You can leave out TEST_GROUP_C_SETUP() / TEST_GROUP_C_TEARDOWN() and TEST_GROUP_C_SETUP_WRAPPER() / TEST_GROUP_C_TEARDOWN_WRAPPER(), if you don't need them.
+
+The following assertion macros are supported in the pure C interface:
+
+{% highlight c++ %}
+CHECK_EQUAL_C_INT(expected,actual);
+CHECK_EQUAL_C_REAL(expected,actual,threshold);
+CHECK_EQUAL_C_CHAR(expected,actual);
+CHECK_EQUAL_C_STRING(expected,actual);
+CHECK_EQUAL_C_POINTER(expected,actual); /* v3.8 */
+CHECK_EQUAL_C_BITS(expected, actual, mask); /* v3.8, pending */
+FAIL_TEXT_C(text);
+FAIL_C();
+CHECK_C(condition);
+{% endhighlight %}
+
+These macros ensure tests get terminated in a way appropriate for pure C code.
 
 <a id="gmock"> </a>
 

@@ -21,12 +21,14 @@ The main idea is to make manual mocking easier, rather than to make automated mo
 * [Using Parameters](#parameters)
 * [Objects as Parameters](#objects_as_parameters)
 * [Output Parameters](#output_parameters)
+* [Output Parameters Using Objects](#output_parameters_using_objects)
 * [Return Values](#return_values)
 * [Passing other data](#other_data)
 * [Other MockSupport](#other_mock_support)
 * [MockSupport Scope](#mock_scope)
-* [MockPlugin](#mock_plugin)
+* [MockSupportPlugin](#mock_plugin)
 * [C Interface](#c_interface)
+* [Miscellaneous](#miscellaneous)
 
 <a id="simple_scenario"> </a>
 
@@ -98,6 +100,12 @@ If the call to productionCode wouldn't happen, then the test would fail with the
             productionCode -> no parameters
         ACTUAL calls that did happen:
             <none>
+
+Sometimes you expect *several identical calls* to the same function, for example five calls to productionCode. There is a convenient shorthand for that situation:
+
+{% highlight c++ %}
+mock().expectNCalls(5, "productionCode");
+{% endhighlight %}
 
 <a id="objects"> </a>
 
@@ -213,10 +221,10 @@ public:
 
 The isEqual is called to compare the two parameters. The valueToString is called when an error message is printed and it needs to print the actual and expected values. If you want to use normal C functions, you can use the MockFunctionComparator which accepts pointers to functions in the constructor.
 
-To remove the comparators, all you needs to do is call removeAllComparators, like:
+To remove the comparators, all you needs to do is call removeAllComparatorsAndCopiers, like:
 
 {% highlight c++ %}
-mock().removeAllComparators();
+mock().removeAllComparatorsAndCopiers();
 {% endhighlight %}
 
 Comparators sometimes lead to surprises, so a couple of warnings on its usage:
@@ -251,7 +259,7 @@ mock().expectOneCall("Foo").withOutputParameterReturning("bar", &outputValue, si
 {% highlight c++ %}
 void Foo(int *bar)
 {
-    mock().actualCall("foo").withOutputParameter("bar", bar);
+    mock().actualCall("Foo").withOutputParameter("bar", bar);
 }
 {% endhighlight %}
 
@@ -286,6 +294,54 @@ mock().expectOneCall("Foo").withOutputParameterReturning("bar", &doubleOutputVal
 *Warning 2:*
 
 * When a char, int, etc. array is passed to withOutputParameter, you must use the generic withOutputParameterReturning and provide the actual size of the array or only one element will be copied.
+
+<a id="output_parameters_using_objects"> </a>
+
+### Output Parameters Using Objects
+
+By far the best way to handle output parameters is by using a custom type copier (v3.8). The general principle is similar to the custom comparators described above:
+
+{% highlight c++ %}
+MyType outputValue = 4;
+mock().expectOneCall("Foo").withOutputParameterOfTypeReturning("MyType", "bar",  &outputValue);
+{% endhighlight %}
+
+The corresponding actual call is:
+
+{% highlight c++ %}
+void Foo(int *bar)
+{
+    mock().actualCall("Foo").withOutputParameterOfType("MyType", "bar",  bar);
+}
+{% endhighlight %}
+
+When using withOutputParameterOfTypeReturning, the mocking framework needs to know how to copy the type and therefore a Copier has to be installed before using parameters of this type. This is done using installCopier, as below:
+
+{% highlight c++ %}
+MyTypeCopier copier;
+mock().installCopier("myType", copier);
+{% endhighlight %}
+
+MyTypeCopier is a custom copier, which implements the MockNamedValueCopier interface. For example:
+
+{% highlight c++ %}
+class MyTypeCopier : public MockNamedValueCopier
+{
+public:
+    virtual void copy(void* out, const void* in)
+    {
+        *(MyType*)out = *(const MyType*)in;
+    }
+};
+{% endhighlight %}
+
+To remove the copier, you need to call removeAllComparatorsAndCopiers, like:
+
+{% highlight c++ %}
+mock().removeAllComparatorsAndCopiers();
+{% endhighlight %}
+
+*Warning 1* and *Warning 2* above apply to copiers as well.
 
 <a id="return_values"> </a>
 
@@ -447,29 +503,9 @@ mock("filesystem").ignoreOtherCalls();
 
 <a id="mock_plugin"> </a>
 
-### MockPlugin
+### MockSupportPlugin
 
-CppUTest plugins can be installed in the main and 'extent' the unit test framework. It is a place where you can put work that needs to be done in all unit tests. There is a MockPlugin to make the work with mocks easier. It does the following work:
-
-* checkExpectations at the end of every test (on global scope, which goes recursive over all scopes)
-* clear all expectations at the end of every test
-* install all comparators that were configured in the plugin at the beginning of every test
-* remove all comparators at the end of every test
-
-Installing the MockPlugin means you'll have to add to main something like:
-
-{% highlight c++ %}
-#include "CppUTest/TestRegistry.h"
-#include "CppUTestExt/MockSupportPlugin.h"
-
-MyDummyComparator dummyComparator;
-MockSupportPlugin mockPlugin;
-
-mockPlugin.installComparator("MyDummyType", dummyComparator);
-TestRegistry::getCurrentRegistry()->installPlugin(&mockPlugin);
-{% endhighlight %}
-
-This code creates a comparator for MyDummy and installs it at the plugin. This means the comparator is available for all test cases. It creates the plugin and installs it at the current test registry. After installing the plugin, you don't have to worry too much anymore about calling checkExpectations or cleaning your MockSupport.
+There is a MockSupportPlugin to make the work with mocks easier. Complete Documentation for MockSupportPlugin can be found on the [Plugins Manual](plugins_manual.html) page.
 
 <a id="c_interface"> </a>
 
@@ -481,7 +517,7 @@ Sometimes it is useful to access the mocking framework from a .c file rather tha
 #include "CppUTestExt/MockSupport_c.h"
 
 mock_c()->expectOneCall("foo")->withIntParameters("integer", 10)->andReturnDoubleValue(1.11);
-mock_c()->actualCall("foo")->withIntParameters("integer", 10)->returnValue().value.doubleValue;
+return mock_c()->actualCall("foo")->withIntParameters("integer", 10)->returnValue().value.doubleValue;
 
 mock_c()->installComparator("type", equalMethod, toStringMethod);
 mock_scope_c("scope")->expectOneCall("bar")->withParameterOfType("type", "name", object);
@@ -495,3 +531,29 @@ mock_c()->clear();
 {% endhighlight %}
 
 The C interface uses a similar builder structure as the C++ interface. It is far less common in C, but it works the same.
+
+It is now also possible to specify the actual return value in the same way as with C++ (v3.8):
+
+{% highlight c++ %}
+return mock_c()->actualCall("foo")->withIntParameters("integer", 10)->doubleReturnValue();
+return mock_c()->doubleReturnValue();
+{% endhighlight %}
+
+and to specify a default return value, in case mocking is currently disabled when the actual call occurs (v3.8):
+
+{% highlight c++ %}
+return mock_c()->actualCall("foo")->withIntParameters("integer", 10)->returnDoubleValueOrDefault(2.25);
+return mock_c()->returnDoubleValueOrDefault(2.25);
+{% endhighlight %}
+
+<a id="miscellaneous"></a>
+
+### Miscellaneous
+
+If you want your test to be more explicit about that a certain mocked function call should not occur, you can write (v3.8):
+
+{% highlight c++ %}
+mock().expectNoCall("productionCode");
+{% endhighlight %}
+
+Doing so is functionally equivalent to stating no expectations at all.
