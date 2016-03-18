@@ -394,7 +394,7 @@ Test plugins let you add a pre-action and a post-action to each test case.  Plug
 * IEEE754 Floating point exceptions (provided; v3.8) - automatically checks whether any floating point exception flags are set at the end of every test and if so, fails the test.
 * All Mutex's released - you could write a plugin that checks that any Mutexs or other shared resource is released before the test exits.
 
-Complete Documentation for provided plugins can be found on the [Plugins Manual](plugins_manual.html) page.
+Complete Documentation for provided plugins can be found on the [Plugin Manual](plugin_manual.html) page.
 
 <a id="scripts"> </a>
 
