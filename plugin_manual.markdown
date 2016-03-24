@@ -189,3 +189,66 @@ src/CppUTestExt/IEEE754ExceptionsPlugin.cpp:164: error:
 Errors (2 failures, 2 tests, 2 ran, 12 checks, 0 ignored, 0 filtered out, 39 ms)
 $  
 {% endhighlight %}
+
+### Debugging floating point failures
+
+When a test fails due to a floating point error, it can be challenging to find the location of the offending operation, since the plugin has no knowledge of where the flag was originally set. To aid in debugging, there is a static method you can use to set up a watch:
+{% highlight c++ %}
+IEEE754ExceptionsPlugin::checkIeee754ExeptionFlag(int flag). 
+{% endhighlight %}
+Unfortunately, the debugger has no knowledge of defined macros such as FE_DIVBYZERO. Therefore, you will need to find out the integer value of the macro you require, and pass that as argument. Here is an minimal example using Gdb, example.cpp:
+{% highlight c++ %}
+#include "CppUTest/TestHarness.h"
+#include "CppUTestExt/IEEE754ExceptionsPlugin.h"
+
+static volatile float f = 1.0;
+static volatile IEEE754ExceptionsPlugin plugin;   // Make sure this is linked, so the debugger knows it
+
+int main(int, char**) {
+    f /= 0.0f;           // the offending statement
+    return 0;
+}
+{% endhighlight %}
+1) Compile the example. Your command line will look roughly like this:
+{% highlight bash %}
+$ g++ -Wextra -Wall -Werror -g3 -O0 -std=c++11 -Iinclude -Llib example.cpp -lCppUTest -lCppUTestExt -o example.exe
+{% endhighlight %}
+2) Start the example in Gdb:
+{% highlight bash %}
+$ gdb ./example.exe
+GNU gdb (GDB) 7.6.50.20130728-cvs (cygwin-special)
+#...more gdb output here...
+Reading symbols from /cygdrive/c/data/00_Dev/06_Faking/MiscellanousTests/example.exe...done.
+(gdb)
+{% endhighlight %}
+3) Set a breakpoint and run the example:
+{% highlight bash %}
+(gdb) break main
+Breakpoint 1 at 0x4011ab: file example.cpp, line 8.
+(gdb) run
+Starting program: /cygdrive/c/data/00_Dev/06_Faking/MiscellanousTests/example.exe
+[New Thread 6476.0x2038]
+[New Thread 6476.0x239c]
+
+Breakpoint 1, main () at example.cpp:8
+8           f /= 0.0f;
+(gdb)
+{% endhighlight %}
+4) Set up the watch you need (on this particular platform, FE_DIVBYZERO==0x04):
+{% highlight bash %}
+(gdb) watch IEEE754ExceptionsPlugin::checkIeee754ExeptionFlag(0x04)
+Watchpoint 2: IEEE754ExceptionsPlugin::checkIeee754ExeptionFlag(0x04)
+(gdb)
+{% endhighlight %}
+5) Stepping over the offending statement will change the value of your watch:
+{% highlight bash %}
+(gdb) next
+Watchpoint 2: IEEE754ExceptionsPlugin::checkIeee754ExeptionFlag(0x04)
+
+Old value = false
+New value = true
+0x004011b5 in main () at example.cpp:8
+8           f /= 0.0f;
+(gdb)
+{% endhighlight %}
+Of course you don't have to use commandline Gdb to do this; you can debug your code from within your favorite IDE (Eclipse, Code::Blocks, ...) following basically the same procedure.
