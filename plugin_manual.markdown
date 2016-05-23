@@ -192,11 +192,14 @@ $
 
 ### Debugging floating point failures
 
-When a test fails due to a floating point error, it can be challenging to find the location of the offending operation, since the plugin has no knowledge of where the flag was originally set. To aid in debugging, there is a static method you can use to set up a watch:
+When a test fails due to a floating point error, it can be challenging to find the location of the offending operation, since the plugin has no knowledge of where the flag was originally set. To aid in debugging, there is are a number of static methods you can use to set up a watch:
 {% highlight c++ %}
-IEEE754ExceptionsPlugin::checkIeee754ExeptionFlag(int flag). 
+IEEE754ExceptionsPlugin::checkIeee754OverflowExceptionFlag();
+IEEE754ExceptionsPlugin::checkIeee754UnderflowExceptionFlag();
+IEEE754ExceptionsPlugin::checkIeee754InexactExceptionFlag();
+IEEE754ExceptionsPlugin::checkIeee754DivByZeroExceptionFlag();
 {% endhighlight %}
-Unfortunately, the debugger has no knowledge of defined macros such as FE_DIVBYZERO. Therefore, you will need to find out the integer value of the macro you require, and pass that as argument. Here is an minimal example using Gdb, example.cpp:
+Here is an minimal example using Gdb, example.cpp:
 {% highlight c++ %}
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/IEEE754ExceptionsPlugin.h"
@@ -234,16 +237,16 @@ Breakpoint 1, main () at example.cpp:8
 8           f /= 0.0f;
 (gdb)
 {% endhighlight %}
-4) Set up the watch you need (on this particular platform, FE_DIVBYZERO==0x04):
+4) Set up the watch you need:
 {% highlight bash %}
-(gdb) watch IEEE754ExceptionsPlugin::checkIeee754ExeptionFlag(0x04)
-Watchpoint 2: IEEE754ExceptionsPlugin::checkIeee754ExeptionFlag(0x04)
+(gdb) watch IEEE754ExceptionsPlugin::checkIeee754DivByZeroExceptionFlag()
+Watchpoint 2: IEEE754ExceptionsPlugin::checkIeee754DivByZeroExceptionFlag()
 (gdb)
 {% endhighlight %}
 5) Stepping over the offending statement will change the value of your watch:
 {% highlight bash %}
 (gdb) next
-Watchpoint 2: IEEE754ExceptionsPlugin::checkIeee754ExeptionFlag(0x04)
+Watchpoint 2: IEEE754ExceptionsPlugin::checkIeee754DivByZeroExceptionFlag()
 
 Old value = false
 New value = true
