@@ -505,7 +505,7 @@ mock("filesystem").ignoreOtherCalls();
 
 ### MockSupportPlugin
 
-There is a MockSupportPlugin to make the work with mocks easier. Complete Documentation for MockSupportPlugin can be found on the [Plugins Manual](plugins_manual.html) page.
+There is a MockSupportPlugin to make the work with mocks easier. Complete Documentation for MockSupportPlugin can be found on the [Plugin Manual](plugin_manual.html) page.
 
 <a id="c_interface"> </a>
 
