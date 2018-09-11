@@ -531,16 +531,28 @@ You can leave out TEST_GROUP_C_SETUP() / TEST_GROUP_C_TEARDOWN() and TEST_GROUP_
 The following assertion macros are supported in the pure C interface:
 
 {% highlight c++ %}
+CHECK_EQUAL_C_BOOL(expected,actual);
 CHECK_EQUAL_C_INT(expected,actual);
+CHECK_EQUAL_C_UINT(expected,actual);
+CHECK_EQUAL_C_LONG(expected,actual);
+CHECK_EQUAL_C_ULONG(expected,actual);
+CHECK_EQUAL_C_LONGLONG(expected,actual);
+CHECK_EQUAL_C_ULONGLONG(expected,actual);
 CHECK_EQUAL_C_REAL(expected,actual,threshold);
 CHECK_EQUAL_C_CHAR(expected,actual);
+CHECK_EQUAL_C_UBYTE(expected,actual);
+CHECK_EQUAL_C_SBYTE(expected,actual);
 CHECK_EQUAL_C_STRING(expected,actual);
 CHECK_EQUAL_C_POINTER(expected,actual); /* v3.8 */
 CHECK_EQUAL_C_BITS(expected, actual, mask); /* v3.8, pending */
 FAIL_TEXT_C(text);
 FAIL_C();
 CHECK_C(condition);
+CHECK_C_TEXT(condition, text);
 {% endhighlight %}
+
+*NOTE* LONGLONG assertions are disabled by default.
+*NOTE2* All macros have _TEXT() equivalents like CHECK_C_TEXT(), which are not explicitly listed here.
 
 These macros ensure tests get terminated in a way appropriate for pure C code.
 
