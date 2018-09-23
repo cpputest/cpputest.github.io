@@ -10,6 +10,7 @@ CppUTest plugins can be installed in the main and 'extend' the unit test framewo
 * [SetPointerPlugin](#setpointerplugin)
 * [MockSupportPlugin](#mocksupportplugin)
 * [IEEE754ExceptionsPlugin](#ieee754exceptionsplugin)
+* [OrderedTests](#orderedtests)
 
 <a id="setpointerplugin"> </a>
 
@@ -255,3 +256,51 @@ New value = true
 (gdb)
 {% endhighlight %}
 Of course you don't have to use commandline Gdb to do this; you can debug your code from within your favorite IDE (Eclipse, Code::Blocks, ...) following basically the same procedure.
+
+## OrderedTests
+
+### Usage
+
+{% highlight c++ %}
+TEST_ORDERED(TestGroup, TestName, Level) {}
+TEST_ORDERED_C_WRAPPER(TestGroup, TestName, Level)
+{% endhighlight %}
+
+Order: Test are executed from lowest to highest level. Tests with same same level are executed top down.
+
+{% highlight c++ %}
+#include "CppUTest/TestHarness.h"
+#include "CppUTestExt/OrderedTest.h"
+
+TEST_GROUP(TestOrderedTest) {}
+
+TEST_ORDERED(TestOrdered, Test3, 3) {
+    // 3. Test
+}
+
+TEST_ORDERED(TestOrdered, Test1, 1) {
+    // 1. Test
+}
+
+TEST_ORDERED(TestOrdered, Test4, 3) {
+    // 4. Test
+}
+
+TEST_ORDERED_C_WRAPPER(TestOrdered, Test2, 2)
+
+TEST_ORDERED_C_WRAPPER(TestOrdered, Test5, 5)
+{% endhighlight %}
+
+Only the C++-wrapper changes, the C-file synatx is as usual.
+
+{% highlight c++ %}
+#include "CppUTest/TestHarness_c.h"
+
+TEST_C(TestOrdered, Test2) {
+    // 2. Test
+}
+
+TEST_C(TestOrdered, Test5) {
+    // 5. Test
+}
+{% endhighlight %}
