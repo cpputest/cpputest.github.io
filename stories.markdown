@@ -8,6 +8,7 @@ title: Useful CppUTest Application Stories
 ## Table of Content
 
 * [Unit Testing With IAR Embedded Workbench](#iar)
+* [Guide to setup CppUTest for Eclipse in Windows 7](#eclipsewindows7)
 
 <a id="iar"> </a>
 
@@ -142,3 +143,12 @@ Show the Terminal I/O window to see the output. In non-verbose mode a dot is wri
 There's lots of other details to be considered such as Workspaces, build configurations, and what to do when things go wrong, but hopefully that's enough to get started.
 
 So that's about it. At the end of the day, CppUTest looks like it will meet our needs nicely. Once the initial setup is done, it integrates well into IAR and the output is readable within the IDE. The simulator provides a suitable alternative to execution on the PC (which means having to maintain a build with a different compiler) and execution on the hardware (which requires working hardware, Flash writes, functioning peripherals and is difficult to inject test vectors into).
+
+<a id="eclipsewindows7"> </a>
+
+## Guide to setup CppUTest for Eclipse in Windows 7
+
+By Miguel Mora Perea
+
+Can be found [at the github page](https://github.com/miguelmoraperea/guide_setup_cpputest_eclipse_win_7)
+
