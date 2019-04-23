@@ -19,7 +19,7 @@ CppUTest's core design principles are:
 
 *Linux*
 
-There is an Debian and Ubuntu package available for CppUTest. This is by far the easiest way to install it, via:
+There is a Debian and an Ubuntu package available for CppUTest. This is by far the easiest way to install it, via:
 
 {% highlight bash %}
 $ apt-get install cpputest
@@ -52,7 +52,7 @@ Or clone it via ssh (which requires a github account)
 $ git clone git@github.com:cpputest/cpputest.git
 {% endhighlight %}
 
-After you cloned CppUTest, you can build it with your favorite build tool (CMake or autoconf).
+After you have cloned CppUTest, you can build it with your favorite build tool (CMake or autoconf).
 
 Building with autoconf requires you to (this requires you to have installed GNU autotools, apt-get/brew install automake autoconf libtool):
 
@@ -81,7 +81,7 @@ $ cmake ..
 $ make
 {% endhighlight %}
 
-For Windows users, the above work with cygwin. There are also several MS VC++ projects available.
+For Windows users, the above will work with cygwin. There are also several MS VC++ projects available.
 
 ## Where to find more information
 
