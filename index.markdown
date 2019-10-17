@@ -15,6 +15,14 @@ CppUTest's core design principles are:
 
 ## Where to get CppUTest
 
+### James Grenning's cpputest-starter-project
+
+An easy way to get started adding tests to your code is by using James' [cpputest-starter-project](https://github.com/jwgrenning/cpputest-starter-project).  You'll find CppUTest installation instructions along with your first test case, and some other example code.  DO NOT INSTALL CppUTest using the "Pre-packaged" options described here. The starter kit uses `MakefileWorker.mk`  (not supported pre-packeged) helping you get started without having to first learn `make`.
+
+James' example is set up to have you put CppUTest into your own git repo (as a submodule) so in the years to come, you can recreate your exact unit test environment.
+
+Adding tests to untested C and C++ can be a big challenge.  You might find [TDD HOW-TO: Get your Legacy C into a Test Harness](https://wingman-sw.com/articles/tdd-legacy-c) a useful recipe and resource. The page includes links to numerous articles of real legacy C challenges.
+
 ### Pre-packaged
 
 *Linux*
