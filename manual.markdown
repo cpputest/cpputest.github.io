@@ -379,6 +379,10 @@ public:
 
 Yes, its ugly. But usually people don't overload operator new everywhere. If you do, consider turning off the new macro completely.
 
+### Other conflicts in the test file only
+
+If your conflict is only in the test code files, put the CppUTest  includes after your includes.  Because of this potential conflict, its a good idea to put the CppUTest includes after your includes as a preemptive measure.
+
 ### Conflicts with MFC
 
 Tbd

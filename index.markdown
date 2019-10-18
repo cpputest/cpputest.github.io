@@ -11,11 +11,17 @@ CppUTest's core design principles are:
 
 * Simple in design and simple in use.
 * Portable to old and new platforms.
-* Build with Test-driven Development in mind
+* Build with Test-driven Development for Test-driven Developers.
 
-## Where to get CppUTest
+## Setting up CppUTest
 
-### Pre-packaged
+There are several ways to setup CppUTest.  One is to install via package management and the other is from source. The big difference is that from source you can use `MakefileWorker.mk`. MakefileWorker is not supported pre-packaged.  MakefileWorker does not require you to know a lot about `make` and makefiles to get started.
+
+An easy way to get your first test case running is to use James Grenning's [cpputest-starter-project for gcc](https://github.com/jwgrenning/cpputest-starter-project) or [cpputest-starter-project for Visual Studio](https://github.com/jwgrenning/cpputest-starter-project-vs).  James is the author of [Test-Driven Development for Embedded C](https://wingman-sw.com/tddec).  You'll find instructions, your first test case, and some other example code.  James' training resources use MakefileWorker, so you need to install from source.
+
+Adding tests to untested C and C++ can be a big challenge.  You might find [Get your Legacy C into a Test Harness](https://wingman-sw.com/articles/tdd-legacy-c) a useful recipe and resource. The page includes links to numerous articles of real legacy C challenges.
+
+### Pre-packaged install
 
 *Linux*
 
@@ -33,11 +39,11 @@ For Mac, a Homebrew package is available too. You can install via:
 $ brew install cpputest
 {% endhighlight %}
 
-### From source
+### From source install
 
 You can download the latest 'automatically released' version:
 
-* [Latest version passing the build](https://github.com/cpputest/cpputest.github.io/blob/master/releases/cpputest-3.7dev.tar.gz?raw=true)
+* [Latest version passing the build](https://github.com/cpputest/cpputest.github.io/blob/master/releases/cpputest-3.8dev.tar.gz?raw=true)
 This version is automatically packages after a build has passed.
 
 Alternatively, you can clone the github repository, read-only:
@@ -52,7 +58,13 @@ Or clone it via ssh (which requires a github account)
 $ git clone git@github.com:cpputest/cpputest.git
 {% endhighlight %}
 
-After you have cloned CppUTest, you can build it with your favorite build tool (CMake or autoconf).
+CppUTest can also be added to your git repo as a git submodule.
+
+{% highlight bash %}
+$ git submodule add https://github.com/cpputest/cpputest.git
+{% endhighlight %}
+
+Now that you have CppUTest sources, you can build it with your favorite build tool (CMake or autoconf).
 
 Building with autoconf requires you to (this requires you to have installed GNU autotools, apt-get/brew install automake autoconf libtool):
 
@@ -62,6 +74,39 @@ $ autoreconf .. -i
 $ ../configure
 $ make
 {% endhighlight %}
+
+**NOTE**: Building from `cpputest_build` means you will not be able to use `MakefileWorker.mk`.  To use MakefileWorker you need to build from the cpputest home directory.
+
+### Using CppUTest with `MakefileWorker.mk` and gcc
+
+If you want to use CppUTest's `MakefileWorker.mk`, you cannot currently get CppUTest using the "Pre-packaged" options described above. Instead you can get CppUTest from source using the options already described.
+
+Change to the top level directory of CppUTest (the directory containing `include/` and `src/` among other files)
+
+{% highlight bash %}
+$ cd cpputest \
+$ autoreconf . -i
+$ ./configure
+$ make tdd
+$ export CPPUTEST_HOME=$(pwd).
+{% endhighlight %}
+
+You will want to add `export CPPUTEST_HOME=<path>` somewhere like `.bashrc` or in your build script as a relative path.
+
+### Using CppUTest with `MakefileWorker.mk` and Visual Studio
+
+You can build CppUTest using cmake or in the Visual Studio IDE.
+
+*from Visual Studio IDE*
+
+Depending on your VS version double click either
+
+* `CppUTest_VS201x.sln` - for VS 2010 and later
+* `CppUTest.sln` - for pre VS 2010
+
+Say yes to suggested conversions.  Select the menu item corresponding to run without debugging.  CppUTest should build (probably with warnings).  When the build completes the test runner runs. You should see over 1000 tests passing and no test failures. The build also produced a static library (cpputest/lib) holding CppUTest you can link your tests to.
+
+To use CppUTest, define an environment variable `CPPUTEST_HOME` that points to the home directory of CppUTest.  You will find a working example and some more help in [cpputest-starter-project for Visual Studio](https://github.com/jwgrenning/cpputest-starter-project-vs).
 
 ## How to create a coverage report
 
