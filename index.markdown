@@ -58,7 +58,7 @@ Or clone it via ssh (which requires a github account)
 $ git clone git@github.com:cpputest/cpputest.git
 {% endhighlight %}
 
-CppUTest can also be added to your git repor as a git submodule
+CppUTest can also be added to your git repo as a git submodule.
 
 {% highlight bash %}
 $ git submodule add https://github.com/cpputest/cpputest.git
