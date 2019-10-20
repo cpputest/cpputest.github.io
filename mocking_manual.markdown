@@ -6,7 +6,7 @@ title: CppUTest Mocking Manual
 CppUTest has support for building mocks. This document describes the mocking support. A couple of design goals for the mocking support were:
 
 
-* Same design goals as CppuTest -- limited C++ set to make it well suitable for embedded soft.
+* Same design goals as CppuTest -- limited C++ set to make it suitable for embedded software.
 * No code generation
 * No or very few magic hiding macros
 * Very simple to use
