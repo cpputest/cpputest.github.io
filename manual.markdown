@@ -70,7 +70,7 @@ int main(int ac, char** av)
 }
 {% endhighlight %}
 
-CppUTest will automatically find your tests (as long as you don't like them in a library).
+CppUTest will automatically find your tests (as long as you don't link them in a library).
 
 ### Makefile changes
 
