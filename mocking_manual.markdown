@@ -269,28 +269,6 @@ After the actual call, the bar parameter passed to function Foo will have the va
 
 * CppUMock _does not_ and _cannot_ prevent invalid memory accesses when using output parameters. It will memcpy exactly the number of bytes specified in the withOutputParameterReturning call. A segmentation fault may occur if this is larger than the data pointed to by the output parameter provided in the actual call.
 
-Function overloads of withOutputParameterReturning are provided for char, int, unsigned, long, unsigned long, and double types so that the size parameter may be omitted:
-
-{% highlight c++ %}
-char charOutputValue = 'a';
-mock().expectOneCall("Foo").withOutputParameterReturning("bar", &charOutputValue);
-
-int intOutputValue = 4;
-mock().expectOneCall("Foo").withOutputParameterReturning("bar", &intOutputValue);
-
-unsigned unsignedOutputValue = 4;
-mock().expectOneCall("Foo").withOutputParameterReturning("bar", &unsignedOutputValue);
-
-long longOutputValue = 4;
-mock().expectOneCall("Foo").withOutputParameterReturning("bar", &longOutputValue);
-
-unsigned long unsignedLongOutputValue = 4;
-mock().expectOneCall("Foo").withOutputParameterReturning("bar", &unsignedLongOutputValue);
-
-double doubleOutputValue = 4;
-mock().expectOneCall("Foo").withOutputParameterReturning("bar", &doubleOutputValue);
-{% endhighlight %}
-
 *Warning 2:*
 
 * When a char, int, etc. array is passed to withOutputParameter, you must use the generic withOutputParameterReturning and provide the actual size of the array or only one element will be copied.
