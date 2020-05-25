@@ -43,7 +43,7 @@ $ brew install cpputest
 
 You can download the latest 'automatically released' version:
 
-* [Latest version passing the build](https://github.com/cpputest/cpputest.github.io/blob/master/releases/cpputest-3.8dev.tar.gz?raw=true)
+* [Latest version passing the build](https://github.com/cpputest/cpputest/releases/download/latest-passing-build/cpputest-latest.tar.gz)
 This version is automatically packages after a build has passed.
 
 Alternatively, you can clone the github repository, read-only:
@@ -74,6 +74,8 @@ $ autoreconf .. -i
 $ ../configure
 $ make
 {% endhighlight %}
+
+You can use `make install` if you want to install CppUTest system-wide
 
 **NOTE**: Building from **cpputest_build** means you will not be able to use **MakefileWorker.mk**.  To use MakefileWorker you need to build from the cpputest home directory.
 
