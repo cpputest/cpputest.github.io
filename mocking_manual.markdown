@@ -287,7 +287,7 @@ mock().expectOneCall("Foo").withOutputParameterOfTypeReturning("MyType", "bar", 
 The corresponding actual call is:
 
 {% highlight c++ %}
-void Foo(int *bar)
+void Foo(MyType *bar)
 {
     mock().actualCall("Foo").withOutputParameterOfType("MyType", "bar",  bar);
 }
