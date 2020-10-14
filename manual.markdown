@@ -328,17 +328,17 @@ You can do the same by turning it off on a test by test basis, by adding this to
 
 void setup()
 {
-    MemoryLeakWarningPlugin::turnOffNewDeleteOverloads();
+    MemoryLeakWarningPlugin::saveAndDisableNewDeleteOverloads();
 }
 
 void teardown()
 {
-    MemoryLeakWarningPlugin::turnOnNewDeleteOverloads();
+    MemoryLeakWarningPlugin::restoreNewDeleteOverloads();
 }
 
 {% endhighlight %}
 
-(Do not forget to turn it on in the teardown again!)
+(Do not forget to restore it in the teardown again!)
 
 If you want to completely disable memory leak detection then you can do so by building CppUTest with "configure --disable-memory-leak-detection" or passing -DCPPUTEST_MEM_LEAK_DETECTION_DISABLED to the compiler when compiling CppUTest.
 
