@@ -340,7 +340,7 @@ void teardown()
 
 (Do not forget to restore it in the teardown again!)
 
-If you want to completely disable memory leak detection then you can do so by building CppUTest with "configure --disable-memory-leak-detection" or passing -DCPPUTEST_MEM_LEAK_DETECTION_DISABLED to the compiler when compiling CppUTest.
+If you want to completely disable memory leak detection then you can do so by building CppUTest with `configure --disable-memory-leak-detection` or passing `-DCPPUTEST_MEM_LEAK_DETECTION_DISABLED` to the compiler when compiling CppUTest.
 
 ### Conflicts with operator new macros (STL!)
 
