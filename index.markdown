@@ -49,7 +49,7 @@ This version is automatically packages after a build has passed.
 Alternatively, you can clone the github repository, read-only:
 
 {% highlight bash %}
-$ git clone git://github.com/cpputest/cpputest.git
+$ git clone https://github.com/cpputest/cpputest.git
 {% endhighlight %}
 
 Or clone it via ssh (which requires a github account)
