@@ -21,6 +21,7 @@ The main idea is to make manual mocking easier, rather than to make automated mo
 * [Using Parameters](#parameters)
 * [Objects as Parameters](#objects_as_parameters)
 * [Output Parameters](#output_parameters)
+* [Memory Buffer Parameters](#memory_buffer_parameters)
 * [Output Parameters Using Objects](#output_parameters_using_objects)
 * [Return Values](#return_values)
 * [Passing other data](#other_data)
@@ -240,6 +241,22 @@ Comparators are *not* copied, instead it uses the exact instance as passed to th
 * Pay extra attention to scope when using the MockPlugin
 
 When using the MockPlugin (recommended), then it's best to install the comparators via the MockPlugin or put them in global space. The checkExpectations will be called *after* teardown and if your comparator was destroyed in the teardown then this will cause a crash.
+
+<a id="memory_buffer_parameters"> </a>
+
+### Memory Buffer Parameters
+
+When testing a function that accepts a pointer to data as a parameter you may want to check the value of the data referenced by the pointer instead of the value of the pointer itself. This can be done using withMemoryBufferParameter like:
+
+{% highlight c++ %}
+mock().expectOneCall("function").onObject(object).withMemoryBufferParameter("buffer", buffer, length);
+{% endhighlight %}
+
+and the actual call would be:
+
+{% highlight c++ %}
+mock().actualCall("function").onObject(this).withMemoryBufferParameter("buffer", buffer, length);
+{% endhighlight %}
 
 <a id="output_parameters"> </a>
 
