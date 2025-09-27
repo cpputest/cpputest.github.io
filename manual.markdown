@@ -243,6 +243,7 @@ The test execution of this will *likely* (no guarantee of order in CppUTest) be:
 * *-oteamcity* output to xml files (as the name suggests, for TeamCity)
 * *-p* run tests in a separate process.
 * *-r#* repeat the tests some number (#) of times, or twice if # is not specified. This is handy if you are experiencing memory leaks. A second run that has no leaks indicates that someone is allocating statics and not releasing them.
+* *-ri* run ignored tests as if they are not ignored
 * *-sg group* only run test whose group exactly matches the string *group*
 * *-sn name* only run test whose name exactly matches the string *name*
 * *-v* verbose, print each test name as it runs
